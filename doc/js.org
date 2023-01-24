@@ -1,0 +1,1037 @@
+* JS
+** 始める前に
+*** カオスのJS
+**** 'b' + 'a' + + 'a' + 'a'
+intro/baaa.js
+#+begin_src js
+  console.log(('b' + 'a' + + 'a' + 'a').toLowerCase()); // > ??
+#+end_src
+
+**** typeof
+intro/typeof.js
+#+begin_src js
+  console.log("typeof ''");
+  console.log(typeof ''); // > ??
+  console.log();
+
+  console.log("typeof 's'");
+  console.log(typeof 's'); // > ??
+  console.log();
+
+  console.log("typeof 30");
+  console.log(typeof 30); // > ??
+  console.log();
+
+  console.log("typeof true");
+  console.log(typeof true); // > ??
+  console.log();
+
+  console.log("typeof undefined");
+  console.log(typeof undefined); // > ??
+  console.log();
+
+  console.log("typeof {a:1}");
+  console.log(typeof {a:1}); // > ??
+  console.log();
+
+  console.log("typeof function(){}");
+  console.log(typeof function(){}); // > ??
+  console.log();
+
+  console.log("typeof [1, 2, 4]");
+  console.log(typeof [1, 2, 4]); // > ??
+  console.log();
+
+  console.log("typeof null");
+  console.log(typeof null); // > ??
+  console.log();
+
+  console.log("typeof NaN");
+  console.log(typeof NaN); // > ??
+  console.log();
+#+end_src
+
+**** Math.Max() > Math.Min()
+intro/max_min.js
+#+begin_src js
+  console.log(Math.min() > Math.max()); // > ??
+  console.log(Math.min() < Math.max()); // > ??
+#+end_src
+
+*** なんでこうなったか？
++ なるべくエラーを出さないのを前提にしてデザインした言語
++ 開発期間が短かった。
+*** 結果は？
++ JSは単なるおもちゃ言語だと思う。
++ JSはcopy & pasteでも十分だと思う。
+** JSを学ばなければならない理由
++ frontで動く唯一の言語(他の選択肢がない。）
++ script言語の中ですごく速い。
++ ES6からは言語自体の機能が強化。
+** この発表会の目的
++ JSのいい所を学び生産性を上げたい。
++ 情報共有を会社の文化にさせたい。
++ vim信者を育てたい。
+** Tips
++ 分からない所があったら質問してください。
++ 発表会が終わった後でも質問してもいいです！
+* Variable
+** 既存の問題点
+*** 定数
+**** ES6の以前定数を宣言する為には？
++ JSの開発者達が集まって、大文字で作成した値は絶対変更しないと約束する。
+**** 例
+***** 例 1 - Ideal
+variable/old/var_constant_ideal.js
+#+begin_src js
+  var PLEASE_DO_NOT_CHANGE = 0;
+  console.log(PLEASE_DO_NOT_CHANGE); // 0
+
+  // 100万行の長いコードの後
+
+  console.log(PLEASE_DO_NOT_CHANGE); // 0
+#+end_src
+
+***** 例 2 - Bad
+variable/old/var_constant_bad.js
+#+begin_src js
+  var PLEASE_DO_NOT_CHANGE = 0;
+  console.log(PLEASE_DO_NOT_CHANGE); // 0
+
+  // 100万行の長いコードの中
+  // 前日、飲んだお酒が脳内で残っており、ぼんやりした状態で作成したコード
+  PLEASE_DO_NOT_CHANGE = 1;
+  // また、100万行の長いコードの後
+
+  console.log(PLEASE_DO_NOT_CHANGE); // 1
+#+end_src
+
+**** 何が問題だったんだろう？
++ 前日、飲んだお酒
++ 一つのfileに100万行もある、今のプロジェクトコード
++ 他の人を信用しすぎた開発者
+*** Scope
+**** Scopeとは?
+***** 説明
++ JSに限定した概念ではない。
++ Scopeは全ての識別子（変数名、関数名、クラス名等） が宣言した位置によって接近できる、有効範囲。
++ 既存のJSのvarは特殊なscopeをもっている。
+***** 種類
+****** block scope
++ block({})によって生成される有効範囲
+****** 関数 scope
++ 関数によって生成される有効範囲
+***** 関連知識
+****** 文, 式, 値
+******* 文(statement)
+******** 特徴
++ 結果をreturnしない。
++ 文はblockを生成する。
+******** 例
++ if文
++ for文
++ while文
++ switch-case文
+******* 式(expression)
+******** 特徴
++ 結果をreturnする。
++ 値になれる。
+******** 例
++ 1 + 2
++ hello()
++ 'abc' + 'def'
+******* 値(value)
+******** 特徴
++ 式が評価された結果 (1 + 2 => 3)
++ 値そのもの (10)
+******** 例
++ 3
++ 'hello'
+**** 例
+***** 例 1 - 関数 scope 1
+variable/old/var_function_scope.js
+#+begin_src js
+  var x = 'global x';
+
+  function foo() {
+    var x = 'inside function x';
+    console.log(x);
+  }
+
+  console.log(x); //> ??
+
+  foo(); //> ??
+
+  console.log(x); //> ??
+#+end_src
+
+***** 例 2 - 関数 scope 2 - globalから接近
+variable/old/var_function_scope_global_access.js
+#+begin_src js
+  var x = 'global x';
+
+  function foo() {
+    x = 'inside function x';
+    console.log(x);
+  }
+
+  console.log(x); //> ??
+
+  foo(); //> ??
+
+  console.log(x); //> ??
+#+end_src
+
+***** 例 3 - block scope 1 - if
+variable/old/var_scope_if.js
+#+begin_src js
+  var x = 'global x';
+
+  if (true) {
+    var x = 'inside if x';
+    console.log(x); //> ??
+  }
+
+  console.log(x); //> ??
+#+end_src
+
+***** 例 4 - block scope 2 - for
+variable/old/var_scope_for.js
+#+begin_src js
+  for (var i = 0; i < 10; i++) {
+    console.log(i); //> ??
+  }
+
+  console.log();
+  console.log(i); //> ??
+#+end_src
+
+***** 例 5 - block scope 3 - for
+variable/old/var_scope_for_global.js
+#+begin_src js
+  var i = 30;
+  console.log(i); //> ??
+
+  for (var i = 0; i < 10; i++) {
+    console.log(i); //> ??
+  }
+
+  console.log(i); //> ??
+#+end_src
+
+***** 例 6 - block scope 4 - for setTimeout
+variable/old/var_scope_for_settimeout.js
+#+begin_src js
+  for (var i = 0; i < 10; i++) {
+    setTimeout(() => {
+      console.log(i); //> ??
+    }, (i + 1) * 1000);
+  }
+#+end_src
+
+***** 例 7 - block scope 5 - 例 6 修正
+variable/old/var_scope_for_settimeout_fix.js
+#+begin_src js
+  for (var i = 0; i < 10; i++) {
+    (function (i) {
+      setTimeout(() => {
+        console.log(i); //> ??
+      }, (i + 1) * 1000);
+    })(i);
+  }
+#+end_src
+
+*** Hoisting
+**** hoistingは?
+***** 説明
++ hoist => 持ち上げる, つり上げる
++ 変数と関数を実行する前にメモリに割り当てるという意味。
++ 変数の宣言と初期化を分離し、宣言だけをコードの先頭に移動されるもの。
++ 説明だけでは難しい概念なので、例を見ながら理解するのがいい。
++ https://developer.mozilla.org/ja/docs/Glossary/Hoisting
++ https://developer.mozilla.org/en-US/docs/Glossary/Hoisting
+**** 例
+***** 例 1
+variable/old/hoisting_variable.js
+#+begin_src js
+  console.log(name); //> ??
+
+  var name = 'Shin';
+
+  console.log(name); //> ??
+#+end_src
+
+***** 例 2
+variable/old/hoisting_function.js
+#+begin_src js
+  console.log(square(4)); //> ??
+
+  function square(x) {
+      return x * x;
+  }
+#+end_src
+
+***** 例 3
+variable/old/hoisting_variable_and_function.js
+#+begin_src js
+  console.log(square); //> ??
+
+  console.log(square(4)); //> ??
+
+  var square = 0;
+  function square(x) {
+    return x * x;
+  }
+
+  console.log(square); //> ??
+
+  console.log(square(4)); //> ??
+#+end_src
+
+***** 例 4 - 例 3 修正
+variable/old/hoisting_variable_and_function_fix.js
+#+begin_src js
+  console.log(square); //> ??
+
+  console.log(square(4)); //> ??
+
+  var square = 0;
+  var square = function(x) {
+      return x * x;
+  }
+
+  console.log(square); //> ??
+
+  console.log(square(4)); //> ??
+#+end_src
+
+** 例
+*** let
+**** 例 1 - 変数宣言
+variable/new/let.js
+#+begin_src js
+  let a = 1;
+  console.log(a); //> ??
+
+  a = 2;
+  console.log(a); //> ??
+#+end_src
+
+**** 例 2 - "let"キーワードを再宣言する場合
+variable/new/let_again.js
+#+begin_src js
+  let a = 1;
+  console.log(a); //> ??
+
+  let a = 2;
+  console.log(a); //> ??
+#+end_src
+
+**** 例 3 - 関数 scope 1
+variable/new/function_scope.js
+#+begin_src js
+  let x = 'global x';
+
+  function foo() {
+    let x = 'inside function x';
+    console.log(x);
+  }
+
+  console.log(x); //> ??
+
+  foo(); //> ??
+
+  console.log(x); //> ??
+#+end_src
+
+**** 例 4 - 関数 scope 2 - globalに接近
+variable/new/function_scope_global.js
+#+begin_src js
+  let x = 'global x';
+
+  function foo() {
+    x = 'inside function x';
+    console.log(x);
+  }
+
+  console.log(x); //> ??
+
+  foo(); //> ??
+
+  console.log(x); //> ??
+#+end_src
+
+**** 例 5 - block scope 1 - if
+variable/new/if_global.js
+#+begin_src js
+  let x = 'global x';
+
+  if (true) {
+    let x = 'inside if x';
+    console.log(x); //> ??
+  }
+
+  console.log(x); //> ??
+#+end_src
+
+**** 例 6 - block scope 2 - if
+variable/new/if_inside.js
+#+begin_src js
+  if (true) {
+    let x = 'inside if x';
+    console.log(x); //> ??
+  }
+
+  console.log(x); //> ??
+#+end_src
+
+**** 例 7 - block scope 2 - for
+variable/new/for.js
+#+begin_src js
+  for (let i = 0; i < 10; i++) {
+    console.log(i); //> ??
+  }
+
+  console.log();
+  console.log(i); //> ??
+#+end_src
+
+**** 例 8 - block scope 4 - setTimeout
+variable/new/set_timeout.js
+#+begin_src js
+  for (let i = 0; i < 10; i++) {
+    setTimeout(() => {
+      console.log(i); //> ??
+    }, (i + 1) * 1000);
+  }
+#+end_src
+
+**** 例 9 - 宣言前に変数を使用
+variable/new/before_create.js
+#+begin_src js
+  console.log(name); //> ??
+
+  let name = 'Shin';
+#+end_src
+
+**** 例 10 - 最初の宣言の際、値を入れない場合
+variable/new/create_without_assign.js
+#+begin_src js
+  let a;
+  console.log(a); //> ??
+
+  a = 10;
+  console.log(a); //> ??
+#+end_src
+
+**** 例 11 - letを後で使用する場合
+variable/new/after_let.js
+#+begin_src js
+  a = 10;
+  let a;
+
+  console.log(a); //> ??
+#+end_src
+
+*** const
+**** 例 1 - 再宣言
+variable/new/const_again.js
+#+begin_src js
+  const a = 1;
+  console.log(a); //> ??
+
+  a = 2;
+  console.log(a); //> ??
+#+end_src
+
+**** 例 2 - 最初の宣言の際、値を入れない場合
+variable/new/const_without_assign.js
+#+begin_src js
+  const a;
+  console.log(a); //> ??
+
+  a = 1;
+  console.log(a); //> ??
+#+end_src
+
+**** 例 3 - reference typeの場合 - 既に存在するpropertyの値変更
+variable/new/const_with_reference_change_property.js
+#+begin_src js
+  const abc = {
+    a: 1,
+    b: 2,
+  };
+
+  abc.a = 5;
+
+  console.dir(abc); //> ??
+#+end_src
+
+**** 例 4 - reference typeの場合 - 新しいproperty追加
+variable/new/const_with_reference_add_property.js
+#+begin_src js
+  const abc = {
+    a: 1,
+    b: 2,
+  };
+
+  abc.c = 10;
+
+  console.log(abc); //> ??
+#+end_src
+
+**** 例 5 - reference typeの場合 - 新しいobjectをassign
+variable/new/const_with_reference_assign_new_reference.js
+#+begin_src js
+  const abc = {
+    a: 1,
+    b: 2,
+  };
+
+  abc = {
+    a: 5,
+    b: 10,
+  }
+
+  console.log(abc); //> ??
+#+end_src
+
+** 説明
+*** TDZ(Temperal Dead Zone)
++ JSのreperenceで「特定の場所ではrefences errorが発生しないといけない」を表現する為の名称
+*** let
++ 定数ではない。
++ 既存の関数scopeが適用される。
++ その上、block scopeも適用される。
++ TDZ(Temperal Dead Zone)が適用される。
+*** const
++ 定数。
++ 既存の関数scopeが適用される。(letと同じ)
++ その上、block scopeも適用される。(letと同じ)
++ TDZ(Temperal Dead Zone)が適用される。(letと同じ)
+** Tips
+*** Object.freeze()
+**** 説明
++ reference typeの変更を防ぎたい場合、Object.freeze()を使用。
++ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze
+**** 例
+***** 例 1 - 使用方法
+variable/tips/freeze_basic_usage.js
+#+begin_src js
+  const obj = {
+    prop: 10
+  };
+
+  Object.freeze(obj);
+
+  obj.prop = 999;
+
+  console.log(obj); //> ??
+#+end_src
+
+***** 例 2 - strict mode
+variable/tips/freeze_strict_mode.js
+#+begin_src js
+  'use strict';
+
+  const obj = {
+    prop: 10
+  };
+
+  Object.freeze(obj);
+
+  obj.prop = 999;
+
+  console.log(obj); //> ??
+#+end_src
+
+***** 例 3 - objectの中にobjectがある場合
+variable/tips/freeze_object_inside_object.js
+#+begin_src js
+  'use strict';
+
+  const obj = {
+    objProp: {
+      prop: 10
+    }
+  };
+
+  Object.freeze(obj);
+
+  obj.objProp.prop = 999;
+
+  console.log(obj); //> ??
+#+end_src
+
+***** 例 4 - objectの中にobjectがある場合、対処法
+variable/tips/freeze_object_inside_object_rescue.js
+#+begin_src js
+  'use strict';
+
+  const obj = {
+    objProp: {
+      prop: 10
+    }
+  };
+
+  Object.freeze(obj);
+  Object.freeze(obj.objProp);
+
+  obj.objProp.prop = 999;
+
+  console.log(obj); //> ??
+#+end_src
+
+*** varがかわいそうです、varもたまには使用したいです。いいですよね？
+**** 説明
++ 現在(2023年)基準では使用しないでください。
+**** 理由
++ varの場合定数変数かどうかの区別が難しい。
++ varの場合基本的に定数ではないのでコードの可読性が下がる。
++ varは他のプログラミング言語と違う動きをもっている。
+*** letとconstどっちを使うべき？
+**** 説明
++ できる限りconstを使用すること。
+**** 理由
++ constを使用すると変数の値が変更されないと確信して、コードを読める。
++ 意図しなかった変更を予防できる。
+* Arrow function
+** Arrow function以前の関数宣言方法
+*** 方法 1 - 関数宣言
+arrow/old/function_declare.js
+#+begin_src js
+  function sayMyName() {
+    console.log('shin');
+  }
+
+  sayMyName(); // > ??
+#+end_src
+
+*** 方法 2 - 関数式
+arrow/old/function_expression.js
+#+begin_src js
+  const sayMyName = function () {
+    console.log('shin');
+  }
+
+  sayMyName(); // > ??
+#+end_src
+
+** 既存の問題点
+*** hoisting
+**** 例
+***** 例 1 - 関数宣言使用
+arrow/old/function_declare_hoisting.js
+#+begin_src js
+  sayMyName(); // > ??
+
+  function sayMyName() {
+    console.log('shin');
+  }
+
+  sayMyName(); // > ??
+#+end_src
+
+***** 例 2 - 関数式使用
+arrow/old/function_expression_hoisting.js
+#+begin_src js
+  sayMyName(); // > ??
+
+  const sayMyName = function () {
+    console.log('shin');
+  }
+
+  sayMyName(); // > ??
+#+end_src
+
+**** 説明
++ 関数宣言で使用する時と関数式で使用する時のhoistingが違う
+*** constructor
+**** 例
+***** 例 1 - constructor使用法
+arrow/old/constructor_function.js
+#+begin_src js
+  var People = function (name) {
+    this.name = name;
+
+    this.sayMyName = function() {
+      console.log(this.name);
+    }
+  };
+
+  var person = new People('shin');
+  person.sayMyName();
+#+end_src
+
+***** 例 2 - 関数はconstructorになれる。
+arrow/old/all_function_is_constructor_function.js
+#+begin_src js
+  var add = function (a, b) {
+    return a + b;
+  };
+
+  var isntItBug = new add();
+
+  console.dir(isntItBug);
+  console.dir(add);
+#+end_src
+
+**** 説明
++ 関数を生成すると自動的にその関数にconstructorが繋がる。
++ constructorで使用したくない関数でもconstructor機能をもってる為、
+  無駄なresourceを使用してしまう。
+
+*** this
+**** 例
+***** 例 1 - this binding
+arrow/old/this.js
+#+begin_src js
+  function Person() {
+    this.age = 0;
+
+    setInterval(function growUp() {
+      this.age++;
+      console.log(this.age);
+    }, 1000);
+  }
+
+  var p = new Person();
+#+end_src
+
+***** 例 2 - thisを変数に入れて使用
+arrow/old/this_fix.js
+#+begin_src js
+  function Person() {
+    var that = this;
+    that.age = 0;
+
+    setInterval(function growUp() {
+      that.age++;
+      console.log(that.age);
+    }, 1000);
+  }
+
+  var p = new Person();
+#+end_src
+
+**** 説明
++ methodの場合thisがglobalになっている。
++ 不用なthis bindingにより、無駄なresource使用してしまう。
+** 例
+*** 例 1 - arrow function作成
+arrow/new/arrow.js
+#+begin_src js
+  // var sayMyName = function () {
+  //   console.log('shin');
+  // }
+
+  const sayMyName = () => {
+    console.log('shin');
+  }
+
+  sayMyName(); //> ??
+#+end_src
+
+*** 例 2 - 返還の値だけ存在する場合、波括弧({})と"return"キーボード削除可能
+arrow/new/arrow_remove_paren.js
+#+begin_src js
+  // var getName = function () {
+  //   return 'shin';
+  // }
+  const getName = () => 'shin';
+
+  console.log(getName()); //> ??
+  console.log();
+
+  // var add = function(a, b) {
+  //   return a + b;
+  // }
+  const add = (a, b) => a + b;
+
+  console.log(add(1, 2));
+#+end_src
+
+*** 例 3 - Parameterが1つだけ存在する場合、括弧省略可能。
+arrow/new/arrow_only_one_parameter.js
+#+begin_src js
+  // const square = function(n) {
+  //   return n * n
+  // }
+
+  // const square = (n) => {
+  //   return n * n
+  // }
+
+  // const square = (n) => n * n;
+
+  const square = n => n * n;
+
+  console.log(square(10)); //> ??
+#+end_src
+
+*** 例 4 - Closuresと一緒に使用
+arrow/new/arrow_with_closures.js
+#+begin_src js
+  // const add = function(num1) {
+  //   return function(num2) {
+  //     return num1 + num2;
+  //   }
+  // }
+
+  const add = (num1) => (num2) => num1 + num2;
+
+  const add2 = add(2);
+
+  console.log(add2(10)); //> ??
+#+end_src
+
+*** 例 5 - 返還の値がobjectの場合
+arrow/new/arrow_return_object.js
+#+begin_src js
+  // const f = function() {
+  //   return {
+  //     x: 10,
+  //     y: 20
+  //   }
+  // }
+
+  // const f = () => {
+  //   return {
+  //     x: 10,
+  //     y: 20
+  //   }
+  // }
+
+  // // Do not!
+  // const f = () => {
+  //   x: 10,
+  //   y: 20
+  // }
+
+  const f = () => ({
+    x: 10,
+    y: 20
+  });
+
+  console.log(f());
+#+end_src
+
+*** 例 6 - this
+arrow/new/arrow_this.js
+#+begin_src js
+  // function Person() {
+  //   const that = this;
+  //   that.age = 0;
+
+  //   setInterval(() => {
+  //     that.age++;
+  //     console.log(that.age);
+  //   }, 1000);
+  // }
+
+  function Person() {
+    this.age = 0;
+
+    setInterval(() => {
+      this.age++;
+      console.log(this.age);
+    }, 1000);
+  }
+
+
+  const p = new Person();
+#+end_src
+
+*** 例 7 - Constructorで使用
+arrow/new/arrow_constructor.js
+#+begin_src js
+  const add = (a, b) => a + b;
+
+  const isntItBug = new add();
+
+  console.dir(isntItBug);
+  console.dir(add);
+#+end_src
+
+** 説明
++ 既存functionの宣言を短縮。
++ thisをbindingしない。
++ constructorで使用できない。
+** Tips
+*** "=>"キーワードと既存の"function"キーワード、どっちを利用したらいい？
+**** 説明
++ ES6を使用できる環境だったら"function"キーワードを使用しないこと!
++ "function"キーワードを利用しない方法
+  + 普通の関数 => arrow function
+  + objectのmethod => concised method
+  + constructor関数 => class
+**** 理由
++ "function"キーワードを利用した場合、ブラウザーごとに異なることがあるのでbugになる可能性が存在。
++ "function"キーワードで動作する関数は、理解しにくい所がある。
++ arrow functionは不用なproperty(argument, constructor等)がない為、性能的にもいい。
+
+* Template literal
+** 既存の文字列作成方法
+template_literal/old/declare_string.js
+#+begin_src js
+  const str1 = 'string1';
+  const str2 = "string2";
+#+end_src
+
+** 既存の問題点
+*** 例
+**** 例 1 - 改行
+template_literal/old/new_line.js
+#+begin_src js
+  const newLineEx1 = 'abc\ndef';
+
+  const newLineEx2 = 'abc\n' +
+                     'def';
+
+  console.log(newLineEx1);
+  console.log();
+
+  console.log(newLineEx2);
+#+end_src
+
+**** 例 2 - 文字列に変数を入れる 1
+template_literal/old/insert_variable1.js
+#+begin_src js
+  const name = 'シン';
+  const hello = 'おはよう';
+  const age = 99;
+
+  console.log(name + '、 ' + hello + '! ' + age + '歳の誕生日おめでとう!');
+#+end_src
+
+**** 例 3 - 文字列に変数を入れる 2
+template_literal/old/insert_variable2.js
+#+begin_src js
+  const one = 1;
+  const two = 2;
+
+  console.log(one + ' + ' + two + ' = ' + (one + two));
+#+end_src
+
+**** 例 4 - 文字列の中に '(quote), "(double quote)入れる
+template_literal/old/quote.js
+#+begin_src js
+  const str1 = '"""""""""';
+  const str2 = "'''''''''";
+  const str3 = "\"hello\"";
+
+  console.log(str1); //> ??
+  console.log(str2); //> ??
+  console.log(str3); //> ??
+#+end_src
+
+*** 説明
++ 文字列内部に改行がある場合可読性が悪い。
++ 文字列内部に変数を入れにくい。
++ 文字列内部に'(quote), "(double quote)を入れるのが不便。
+** 例
+*** 例 1 - 改行
+template_literal/new/new_line.js
+#+begin_src js
+const newLineEx = `abc
+def`;
+
+console.log(newLineEx);
+#+end_src
+
+*** 例 2 - 文字列に変数を入れる 1
+template_literal/new/insert_variable1.js
+#+begin_src js
+  const name = 'シン';
+  const hello = 'おはよう';
+  const age = 100;
+
+  console.log(`${name}、 ${hello}! ${age}歳の誕生日おめでとう!`);
+#+end_src
+
+*** 例 3 - 文字列に変数を入れる 2
+template_literal/new/insert_variable2.js
+#+begin_src js
+  const one = 1;
+  const two = 2;
+
+  console.log(`${one} + ${two} = ${one + two}`);
+#+end_src
+
+*** 例 4 - 文字列内部に'(quote), "(double quote)に入れる
+template_literal/new/quote.js
+#+begin_src js
+  const free = `'''''""""'''''""""""'''''`;
+
+  console.log(free);
+#+end_src
+
+*** 例 5 - `(バックティック)の中で$表示。
+template_literal/new/dollar.js
+#+begin_src js
+  const one = 1;
+
+  console.log(`$`);
+  console.log(`$ ${one}`);
+#+end_src
+
+*** 例 6 - `(バックティック)の中で${}表示。
+template_literal/new/string_interpolation.js
+#+begin_src js
+  const one = 1;
+
+  console.log(`$\{one\}は ${one}が出力されます。`);
+#+end_src
+
+** 説明
++ 文字列の新しい宣言方法。
++ `(バックティック)を利用して表現。
++ 改行を楽にできる。
++ String interpolation(${変数名})を利用して文字列の間に簡単に変数を入れられる。
+** Tips
+*** 改行の際、indentの問題
+template_literal/tips/new_line.js
+#+begin_src js
+const newLineEx = `abc
+  def`;
+
+console.log(newLineEx);
+#+end_src
+
+String.prototype.trim()を利用したら改行と関係なく綺麗に書ける。
+
+template_literal/tips/new_line_with_trim.js
+#+begin_src js
+  const newLineEx = `
+abc
+def
+`.trim();
+
+  console.log(newLineEx);
+#+end_src
+
+*** ObjectをString interpolationを利用して文字列を表現する場合の問題
+template_literal/tips/new_line.js
+#+begin_src js
+  const obj = {
+    a: 1,
+    b: 2
+  }
+
+  console.dir(`${obj}`); //> ??
+#+end_src
+
+String interpolationは内部的にtoStringの処理を利用する為、起こる現象。
+
+ObjectをString interpolationで表現する場合はJSON.stringfy()を利用したらいい。
+
+template_literal/tips/object_stringify.js
+#+begin_src js
+const obj = {
+  a: 1,
+  b: 2
+}
+
+console.dir(`${JSON.stringfy(obj)}`);
+#+end_src
+
