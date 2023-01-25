@@ -617,7 +617,7 @@ variable/tips/freezeObjectInsideObjectRescue.js
 [[file:Variable/2023-01-25_14-35-58_js_explain_number_assign.png]]
 
 ****** 説明
-+ 値の内容（データ）が変更しない。
++ 値の内容（データ）が変更できない。
 **** JSのMutable data
 ***** 種類
 + array
@@ -652,7 +652,7 @@ variable/tips/freezeObjectInsideObjectRescue.js
 [[file:Variable/2023-01-25_14-55-39_js_explain_object_change_property.png]]
 
 ****** 説明
-+ 値の内容（データ）が変更する。
++ 値の内容（データ）が変更できる。
 *** varがかわいそうです、varもたまには使用したいです。いいですよね？
 **** 説明
 + 現在(2023年)基準では使用しないでください。
@@ -936,7 +936,7 @@ arrow/new/arrowConstructor.js
   + objectのmethod => concised method
   + constructor関数 => class
 **** 理由
-+ "function"キーワードを利用した場合、ブラウザーごとに異なることがあるのでbugになる可能性が存在。
++ "function"キーワードを利用した場合、ブラウザーごとに異なることがあるのでbugになる可能性がある。
 + "function"キーワードで動作する関数は、理解しにくい所がある。
 + arrow functionは不用なproperty(argument, constructor等)がない為、性能的にもいい。
 * Template literal
@@ -957,10 +957,10 @@ templateLiteral/old/newLine.js
   const newLineEx2 = 'abc\n' +
                      'def';
 
-  console.log(newLineEx1);
+  console.log(newLineEx1); //> ??
   console.log();
 
-  console.log(newLineEx2);
+  console.log(newLineEx2); //> ??
 #+end_src
 
 **** 例 2 - 文字列に変数を入れる 1
@@ -970,7 +970,7 @@ templateLiteral/old/insertVariable1.js
   const hello = 'おはよう';
   const age = 99;
 
-  console.log(name + '、 ' + hello + '! ' + age + '歳の誕生日おめでとう!');
+  console.log(name + '、 ' + hello + '! ' + age + '歳の誕生日おめでとう!'); //> ??
 #+end_src
 
 **** 例 3 - 文字列に変数を入れる 2
@@ -979,7 +979,7 @@ templateLiteral/old/insertVariable2.js
   const one = 1;
   const two = 2;
 
-  console.log(one + ' + ' + two + ' = ' + (one + two));
+  console.log(one + ' + ' + two + ' = ' + (one + two)); //> ??
 #+end_src
 
 **** 例 4 - 文字列の中に '(quote), "(double quote)入れる
@@ -1005,7 +1005,7 @@ templateLiteral/new/newLine.js
 const newLineEx = `abc
 def`;
 
-console.log(newLineEx);
+console.log(newLineEx); //> ??
 #+end_src
 
 *** 例 2 - 文字列に変数を入れる 1
@@ -1015,7 +1015,7 @@ templateLiteral/new/insertVariable1.js
   const hello = 'おはよう';
   const age = 100;
 
-  console.log(`${name}、 ${hello}! ${age}歳の誕生日おめでとう!`);
+  console.log(`${name}、 ${hello}! ${age}歳の誕生日おめでとう!`); //> ??
 #+end_src
 
 *** 例 3 - 文字列に変数を入れる 2
@@ -1024,7 +1024,7 @@ templateLiteral/new/insertVariable2.js
   const one = 1;
   const two = 2;
 
-  console.log(`${one} + ${two} = ${one + two}`);
+  console.log(`${one} + ${two} = ${one + two}`); //> ??
 #+end_src
 
 *** 例 4 - 文字列内部に'(quote), "(double quote)に入れる
@@ -1032,7 +1032,7 @@ templateLiteral/new/quote.js
 #+begin_src js
   const free = `'''''""""'''''""""""'''''`;
 
-  console.log(free);
+  console.log(free); //> ??
 #+end_src
 
 *** 例 5 - `(バックティック)の中で$表示。
@@ -1040,8 +1040,8 @@ templateLiteral/new/dollar.js
 #+begin_src js
   const one = 1;
 
-  console.log(`$`);
-  console.log(`$ ${one}`);
+  console.log(`$`); //> ??
+  console.log(`$ ${one}`); //> ??
 #+end_src
 
 *** 例 6 - `(バックティック)の中で${}表示。
@@ -1049,7 +1049,7 @@ templateLiteral/new/stringInterpolation.js
 #+begin_src js
   const one = 1;
 
-  console.log(`$\{one\}は ${one}が出力されます。`);
+  console.log(`$\{one\}は ${one}が出力されます。`); //> ??
 #+end_src
 
 ** 説明
@@ -1064,7 +1064,7 @@ templateLiteral/tips/newLine.js
 const newLineEx = `abc
   def`;
 
-console.log(newLineEx);
+console.log(newLineEx); //> ??
 #+end_src
 
 String.prototype.trim()を利用したら改行と関係なく綺麗に書ける。
@@ -1076,7 +1076,7 @@ abc
 def
 `.trim();
 
-  console.log(newLineEx);
+  console.log(newLineEx); //> ??
 #+end_src
 
 *** ObjectをString interpolationを利用して文字列を表現する場合の問題
@@ -1092,7 +1092,7 @@ templateLiteral/tips/newLine.js
 
 String interpolationは内部的にtoStringの処理を利用する為、起こる現象。
 
-ObjectをString interpolationで表現する場合はJSON.stringfy()を利用したらいい。
+ObjectをString interpolationで表現する場合はJSON.stringify()を利用したらいい。
 
 templateLiteral/tips/objectStringify.js
 #+begin_src js
@@ -1101,6 +1101,6 @@ const obj = {
   b: 2
 }
 
-console.dir(`${JSON.stringfy(obj)}`);
+console.dir(`${JSON.stringify(obj)}`); //> ??
 #+end_src
 
