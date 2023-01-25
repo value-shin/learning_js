@@ -1,3 +1,9 @@
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
+#+HTML_HEAD: <style>pre.src{background:#343131;color:white;} </style>
+
+#+TITLE: JS
+#+AUTHOR: shin
+
 * JS
 ** 始める前に
 *** カオスのJS
@@ -52,7 +58,7 @@ intro/typeof.js
 #+end_src
 
 **** Math.Max() > Math.Min()
-intro/max_min.js
+intro/maxMin.js
 #+begin_src js
   console.log(Math.min() > Math.max()); // > ??
   console.log(Math.min() < Math.max()); // > ??
@@ -82,7 +88,7 @@ intro/max_min.js
 + JSの開発者達が集まって、大文字で作成した値は絶対変更しないと約束する。
 **** 例
 ***** 例 1 - Ideal
-variable/old/var_constant_ideal.js
+variable/old/varConstantIdeal.js
 #+begin_src js
   var PLEASE_DO_NOT_CHANGE = 0;
   console.log(PLEASE_DO_NOT_CHANGE); // 0
@@ -93,7 +99,7 @@ variable/old/var_constant_ideal.js
 #+end_src
 
 ***** 例 2 - Bad
-variable/old/var_constant_bad.js
+variable/old/varConstantBad.js
 #+begin_src js
   var PLEASE_DO_NOT_CHANGE = 0;
   console.log(PLEASE_DO_NOT_CHANGE); // 0
@@ -149,7 +155,7 @@ variable/old/var_constant_bad.js
 + 'hello'
 **** 例
 ***** 例 1 - 関数 scope 1
-variable/old/var_function_scope.js
+variable/old/varFunctionScope.js
 #+begin_src js
   var x = 'global x';
 
@@ -166,7 +172,7 @@ variable/old/var_function_scope.js
 #+end_src
 
 ***** 例 2 - 関数 scope 2 - globalから接近
-variable/old/var_function_scope_global_access.js
+variable/old/varFunctionScopeGlobalAccess.js
 #+begin_src js
   var x = 'global x';
 
@@ -183,7 +189,7 @@ variable/old/var_function_scope_global_access.js
 #+end_src
 
 ***** 例 3 - block scope 1 - if
-variable/old/var_scope_if.js
+variable/old/varScopeIf.js
 #+begin_src js
   var x = 'global x';
 
@@ -196,7 +202,7 @@ variable/old/var_scope_if.js
 #+end_src
 
 ***** 例 4 - block scope 2 - for
-variable/old/var_scope_for.js
+variable/old/varScopeFor.js
 #+begin_src js
   for (var i = 0; i < 10; i++) {
     console.log(i); //> ??
@@ -207,7 +213,7 @@ variable/old/var_scope_for.js
 #+end_src
 
 ***** 例 5 - block scope 3 - for
-variable/old/var_scope_for_global.js
+variable/old/varScopeForGlobal.js
 #+begin_src js
   var i = 30;
   console.log(i); //> ??
@@ -220,7 +226,7 @@ variable/old/var_scope_for_global.js
 #+end_src
 
 ***** 例 6 - block scope 4 - for setTimeout
-variable/old/var_scope_for_settimeout.js
+variable/old/varScopeForSettimeout.js
 #+begin_src js
   for (var i = 0; i < 10; i++) {
     setTimeout(() => {
@@ -230,7 +236,7 @@ variable/old/var_scope_for_settimeout.js
 #+end_src
 
 ***** 例 7 - block scope 5 - 例 6 修正
-variable/old/var_scope_for_settimeout_fix.js
+variable/old/varScopeForSettimeoutFix.js
 #+begin_src js
   for (var i = 0; i < 10; i++) {
     (function (i) {
@@ -252,7 +258,7 @@ variable/old/var_scope_for_settimeout_fix.js
 + https://developer.mozilla.org/en-US/docs/Glossary/Hoisting
 **** 例
 ***** 例 1
-variable/old/hoisting_variable.js
+variable/old/hoistingVariable.js
 #+begin_src js
   console.log(name); //> ??
 
@@ -262,7 +268,7 @@ variable/old/hoisting_variable.js
 #+end_src
 
 ***** 例 2
-variable/old/hoisting_function.js
+variable/old/hoistingFunction.js
 #+begin_src js
   console.log(square(4)); //> ??
 
@@ -272,7 +278,7 @@ variable/old/hoisting_function.js
 #+end_src
 
 ***** 例 3
-variable/old/hoisting_variable_and_function.js
+variable/old/hoistingVariableAndFunction.js
 #+begin_src js
   console.log(square); //> ??
 
@@ -289,7 +295,7 @@ variable/old/hoisting_variable_and_function.js
 #+end_src
 
 ***** 例 4 - 例 3 修正
-variable/old/hoisting_variable_and_function_fix.js
+variable/old/hoistingVariableAndFunctionFix.js
 #+begin_src js
   console.log(square); //> ??
 
@@ -318,7 +324,7 @@ variable/new/let.js
 #+end_src
 
 **** 例 2 - "let"キーワードを再宣言する場合
-variable/new/let_again.js
+variable/new/letAgain.js
 #+begin_src js
   let a = 1;
   console.log(a); //> ??
@@ -328,7 +334,7 @@ variable/new/let_again.js
 #+end_src
 
 **** 例 3 - 関数 scope 1
-variable/new/function_scope.js
+variable/new/functionScope.js
 #+begin_src js
   let x = 'global x';
 
@@ -345,7 +351,7 @@ variable/new/function_scope.js
 #+end_src
 
 **** 例 4 - 関数 scope 2 - globalに接近
-variable/new/function_scope_global.js
+variable/new/functionScopeGlobal.js
 #+begin_src js
   let x = 'global x';
 
@@ -362,7 +368,7 @@ variable/new/function_scope_global.js
 #+end_src
 
 **** 例 5 - block scope 1 - if
-variable/new/if_global.js
+variable/new/ifGlobal.js
 #+begin_src js
   let x = 'global x';
 
@@ -375,7 +381,7 @@ variable/new/if_global.js
 #+end_src
 
 **** 例 6 - block scope 2 - if
-variable/new/if_inside.js
+variable/new/ifInside.js
 #+begin_src js
   if (true) {
     let x = 'inside if x';
@@ -397,7 +403,7 @@ variable/new/for.js
 #+end_src
 
 **** 例 8 - block scope 4 - setTimeout
-variable/new/set_timeout.js
+variable/new/setTimeout.js
 #+begin_src js
   for (let i = 0; i < 10; i++) {
     setTimeout(() => {
@@ -407,7 +413,7 @@ variable/new/set_timeout.js
 #+end_src
 
 **** 例 9 - 宣言前に変数を使用
-variable/new/before_create.js
+variable/new/beforeCreate.js
 #+begin_src js
   console.log(name); //> ??
 
@@ -415,7 +421,7 @@ variable/new/before_create.js
 #+end_src
 
 **** 例 10 - 最初の宣言の際、値を入れない場合
-variable/new/create_without_assign.js
+variable/new/createWithoutAssign.js
 #+begin_src js
   let a;
   console.log(a); //> ??
@@ -425,7 +431,7 @@ variable/new/create_without_assign.js
 #+end_src
 
 **** 例 11 - letを後で使用する場合
-variable/new/after_let.js
+variable/new/afterLet.js
 #+begin_src js
   a = 10;
   let a;
@@ -435,7 +441,7 @@ variable/new/after_let.js
 
 *** const
 **** 例 1 - 再宣言
-variable/new/const_again.js
+variable/new/constAgain.js
 #+begin_src js
   const a = 1;
   console.log(a); //> ??
@@ -445,7 +451,7 @@ variable/new/const_again.js
 #+end_src
 
 **** 例 2 - 最初の宣言の際、値を入れない場合
-variable/new/const_without_assign.js
+variable/new/constWithoutAssign.js
 #+begin_src js
   const a;
   console.log(a); //> ??
@@ -455,7 +461,7 @@ variable/new/const_without_assign.js
 #+end_src
 
 **** 例 3 - reference typeの場合 - 既に存在するpropertyの値変更
-variable/new/const_with_reference_change_property.js
+variable/new/constWithReferenceChangeProperty.js
 #+begin_src js
   const abc = {
     a: 1,
@@ -468,7 +474,7 @@ variable/new/const_with_reference_change_property.js
 #+end_src
 
 **** 例 4 - reference typeの場合 - 新しいproperty追加
-variable/new/const_with_reference_add_property.js
+variable/new/constWithReferenceAddProperty.js
 #+begin_src js
   const abc = {
     a: 1,
@@ -481,7 +487,7 @@ variable/new/const_with_reference_add_property.js
 #+end_src
 
 **** 例 5 - reference typeの場合 - 新しいobjectをassign
-variable/new/const_with_reference_assign_new_reference.js
+variable/new/constWithReferenceAssignNewReference.js
 #+begin_src js
   const abc = {
     a: 1,
@@ -516,7 +522,7 @@ variable/new/const_with_reference_assign_new_reference.js
 + https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze
 **** 例
 ***** 例 1 - 使用方法
-variable/tips/freeze_basic_usage.js
+variable/tips/freezeBasicUsage.js
 #+begin_src js
   const obj = {
     prop: 10
@@ -530,7 +536,7 @@ variable/tips/freeze_basic_usage.js
 #+end_src
 
 ***** 例 2 - strict mode
-variable/tips/freeze_strict_mode.js
+variable/tips/freezeStrictMode.js
 #+begin_src js
   'use strict';
 
@@ -546,7 +552,7 @@ variable/tips/freeze_strict_mode.js
 #+end_src
 
 ***** 例 3 - objectの中にobjectがある場合
-variable/tips/freeze_object_inside_object.js
+variable/tips/freezeObjectInsideObject.js
 #+begin_src js
   'use strict';
 
@@ -564,7 +570,7 @@ variable/tips/freeze_object_inside_object.js
 #+end_src
 
 ***** 例 4 - objectの中にobjectがある場合、対処法
-variable/tips/freeze_object_inside_object_rescue.js
+variable/tips/freezeObjectInsideObjectRescue.js
 #+begin_src js
   'use strict';
 
@@ -598,7 +604,7 @@ variable/tips/freeze_object_inside_object_rescue.js
 * Arrow function
 ** Arrow function以前の関数宣言方法
 *** 方法 1 - 関数宣言
-arrow/old/function_declare.js
+arrow/old/functionDeclare.js
 #+begin_src js
   function sayMyName() {
     console.log('shin');
@@ -608,7 +614,7 @@ arrow/old/function_declare.js
 #+end_src
 
 *** 方法 2 - 関数式
-arrow/old/function_expression.js
+arrow/old/functionExpression.js
 #+begin_src js
   const sayMyName = function () {
     console.log('shin');
@@ -621,7 +627,7 @@ arrow/old/function_expression.js
 *** hoisting
 **** 例
 ***** 例 1 - 関数宣言使用
-arrow/old/function_declare_hoisting.js
+arrow/old/functionDeclareHoisting.js
 #+begin_src js
   sayMyName(); // > ??
 
@@ -633,7 +639,7 @@ arrow/old/function_declare_hoisting.js
 #+end_src
 
 ***** 例 2 - 関数式使用
-arrow/old/function_expression_hoisting.js
+arrow/old/functionExpressionHoisting.js
 #+begin_src js
   sayMyName(); // > ??
 
@@ -649,7 +655,7 @@ arrow/old/function_expression_hoisting.js
 *** constructor
 **** 例
 ***** 例 1 - constructor使用法
-arrow/old/constructor_function.js
+arrow/old/constructorFunction.js
 #+begin_src js
   var People = function (name) {
     this.name = name;
@@ -664,7 +670,7 @@ arrow/old/constructor_function.js
 #+end_src
 
 ***** 例 2 - 関数はconstructorになれる。
-arrow/old/all_function_is_constructor_function.js
+arrow/old/allFunctionIsConstructorFunction.js
 #+begin_src js
   var add = function (a, b) {
     return a + b;
@@ -680,7 +686,6 @@ arrow/old/all_function_is_constructor_function.js
 + 関数を生成すると自動的にその関数にconstructorが繋がる。
 + constructorで使用したくない関数でもconstructor機能をもってる為、
   無駄なresourceを使用してしまう。
-
 *** this
 **** 例
 ***** 例 1 - this binding
@@ -699,7 +704,7 @@ arrow/old/this.js
 #+end_src
 
 ***** 例 2 - thisを変数に入れて使用
-arrow/old/this_fix.js
+arrow/old/thisFix.js
 #+begin_src js
   function Person() {
     var that = this;
@@ -733,7 +738,7 @@ arrow/new/arrow.js
 #+end_src
 
 *** 例 2 - 返還の値だけ存在する場合、波括弧({})と"return"キーボード削除可能
-arrow/new/arrow_remove_paren.js
+arrow/new/arrowRemoveParen.js
 #+begin_src js
   // var getName = function () {
   //   return 'shin';
@@ -752,7 +757,7 @@ arrow/new/arrow_remove_paren.js
 #+end_src
 
 *** 例 3 - Parameterが1つだけ存在する場合、括弧省略可能。
-arrow/new/arrow_only_one_parameter.js
+arrow/new/arrowOnlyOneParameter.js
 #+begin_src js
   // const square = function(n) {
   //   return n * n
@@ -770,7 +775,7 @@ arrow/new/arrow_only_one_parameter.js
 #+end_src
 
 *** 例 4 - Closuresと一緒に使用
-arrow/new/arrow_with_closures.js
+arrow/new/arrowWithClosures.js
 #+begin_src js
   // const add = function(num1) {
   //   return function(num2) {
@@ -786,7 +791,7 @@ arrow/new/arrow_with_closures.js
 #+end_src
 
 *** 例 5 - 返還の値がobjectの場合
-arrow/new/arrow_return_object.js
+arrow/new/arrowReturnObject.js
 #+begin_src js
   // const f = function() {
   //   return {
@@ -817,7 +822,7 @@ arrow/new/arrow_return_object.js
 #+end_src
 
 *** 例 6 - this
-arrow/new/arrow_this.js
+arrow/new/arrowThis.js
 #+begin_src js
   // function Person() {
   //   const that = this;
@@ -843,7 +848,7 @@ arrow/new/arrow_this.js
 #+end_src
 
 *** 例 7 - Constructorで使用
-arrow/new/arrow_constructor.js
+arrow/new/arrowConstructor.js
 #+begin_src js
   const add = (a, b) => a + b;
 
@@ -869,10 +874,9 @@ arrow/new/arrow_constructor.js
 + "function"キーワードを利用した場合、ブラウザーごとに異なることがあるのでbugになる可能性が存在。
 + "function"キーワードで動作する関数は、理解しにくい所がある。
 + arrow functionは不用なproperty(argument, constructor等)がない為、性能的にもいい。
-
 * Template literal
 ** 既存の文字列作成方法
-template_literal/old/declare_string.js
+templateLiteral/old/declareString.js
 #+begin_src js
   const str1 = 'string1';
   const str2 = "string2";
@@ -881,7 +885,7 @@ template_literal/old/declare_string.js
 ** 既存の問題点
 *** 例
 **** 例 1 - 改行
-template_literal/old/new_line.js
+templateLiteral/old/newLine.js
 #+begin_src js
   const newLineEx1 = 'abc\ndef';
 
@@ -895,7 +899,7 @@ template_literal/old/new_line.js
 #+end_src
 
 **** 例 2 - 文字列に変数を入れる 1
-template_literal/old/insert_variable1.js
+templateLiteral/old/insertVariable1.js
 #+begin_src js
   const name = 'シン';
   const hello = 'おはよう';
@@ -905,7 +909,7 @@ template_literal/old/insert_variable1.js
 #+end_src
 
 **** 例 3 - 文字列に変数を入れる 2
-template_literal/old/insert_variable2.js
+templateLiteral/old/insertVariable2.js
 #+begin_src js
   const one = 1;
   const two = 2;
@@ -914,7 +918,7 @@ template_literal/old/insert_variable2.js
 #+end_src
 
 **** 例 4 - 文字列の中に '(quote), "(double quote)入れる
-template_literal/old/quote.js
+templateLiteral/old/quote.js
 #+begin_src js
   const str1 = '"""""""""';
   const str2 = "'''''''''";
@@ -931,7 +935,7 @@ template_literal/old/quote.js
 + 文字列内部に'(quote), "(double quote)を入れるのが不便。
 ** 例
 *** 例 1 - 改行
-template_literal/new/new_line.js
+templateLiteral/new/newLine.js
 #+begin_src js
 const newLineEx = `abc
 def`;
@@ -940,7 +944,7 @@ console.log(newLineEx);
 #+end_src
 
 *** 例 2 - 文字列に変数を入れる 1
-template_literal/new/insert_variable1.js
+templateLiteral/new/insertVariable1.js
 #+begin_src js
   const name = 'シン';
   const hello = 'おはよう';
@@ -950,7 +954,7 @@ template_literal/new/insert_variable1.js
 #+end_src
 
 *** 例 3 - 文字列に変数を入れる 2
-template_literal/new/insert_variable2.js
+templateLiteral/new/insertVariable2.js
 #+begin_src js
   const one = 1;
   const two = 2;
@@ -959,7 +963,7 @@ template_literal/new/insert_variable2.js
 #+end_src
 
 *** 例 4 - 文字列内部に'(quote), "(double quote)に入れる
-template_literal/new/quote.js
+templateLiteral/new/quote.js
 #+begin_src js
   const free = `'''''""""'''''""""""'''''`;
 
@@ -967,7 +971,7 @@ template_literal/new/quote.js
 #+end_src
 
 *** 例 5 - `(バックティック)の中で$表示。
-template_literal/new/dollar.js
+templateLiteral/new/dollar.js
 #+begin_src js
   const one = 1;
 
@@ -976,7 +980,7 @@ template_literal/new/dollar.js
 #+end_src
 
 *** 例 6 - `(バックティック)の中で${}表示。
-template_literal/new/string_interpolation.js
+templateLiteral/new/stringInterpolation.js
 #+begin_src js
   const one = 1;
 
@@ -990,7 +994,7 @@ template_literal/new/string_interpolation.js
 + String interpolation(${変数名})を利用して文字列の間に簡単に変数を入れられる。
 ** Tips
 *** 改行の際、indentの問題
-template_literal/tips/new_line.js
+templateLiteral/tips/newLine.js
 #+begin_src js
 const newLineEx = `abc
   def`;
@@ -1000,7 +1004,7 @@ console.log(newLineEx);
 
 String.prototype.trim()を利用したら改行と関係なく綺麗に書ける。
 
-template_literal/tips/new_line_with_trim.js
+templateLiteral/tips/newLineWithTrim.js
 #+begin_src js
   const newLineEx = `
 abc
@@ -1011,7 +1015,7 @@ def
 #+end_src
 
 *** ObjectをString interpolationを利用して文字列を表現する場合の問題
-template_literal/tips/new_line.js
+templateLiteral/tips/newLine.js
 #+begin_src js
   const obj = {
     a: 1,
@@ -1025,7 +1029,7 @@ String interpolationは内部的にtoStringの処理を利用する為、起こ�
 
 ObjectをString interpolationで表現する場合はJSON.stringfy()を利用したらいい。
 
-template_literal/tips/object_stringify.js
+templateLiteral/tips/objectStringify.js
 #+begin_src js
 const obj = {
   a: 1,

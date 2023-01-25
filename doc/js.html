@@ -1,0 +1,1964 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-01-25 Wed 09:14 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>JS</title>
+<meta name="author" content="shin" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
+<style>pre.src{background:#343131;color:white;} </style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">JS</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org6e5e5ec">1. JS</a>
+<ul>
+<li><a href="#org4d48553">1.1. 始める前に</a>
+<ul>
+<li><a href="#org1b64e34">1.1.1. カオスのJS</a></li>
+<li><a href="#org340019d">1.1.2. なんでこうなったか？</a></li>
+<li><a href="#org179ad41">1.1.3. 結果は？</a></li>
+</ul>
+</li>
+<li><a href="#org86b89ac">1.2. JSを学ばなければならない理由</a></li>
+<li><a href="#org7392928">1.3. この発表会の目的</a></li>
+<li><a href="#orgdc57230">1.4. Tips</a></li>
+</ul>
+</li>
+<li><a href="#orgcc14372">2. Variable</a>
+<ul>
+<li><a href="#orgbaa3d79">2.1. 既存の問題点</a>
+<ul>
+<li><a href="#org23680ff">2.1.1. 定数</a></li>
+<li><a href="#org236e8b7">2.1.2. Scope</a></li>
+<li><a href="#org954d0b3">2.1.3. Hoisting</a></li>
+</ul>
+</li>
+<li><a href="#org8f30d44">2.2. 例</a>
+<ul>
+<li><a href="#orgc6b575f">2.2.1. let</a></li>
+<li><a href="#org60cb1bc">2.2.2. const</a></li>
+</ul>
+</li>
+<li><a href="#org6c3e36f">2.3. 説明</a>
+<ul>
+<li><a href="#orgea321a4">2.3.1. TDZ(Temperal Dead Zone)</a></li>
+<li><a href="#orgba62490">2.3.2. let</a></li>
+<li><a href="#org08180df">2.3.3. const</a></li>
+</ul>
+</li>
+<li><a href="#orga689329">2.4. Tips</a>
+<ul>
+<li><a href="#org84f6496">2.4.1. Object.freeze()</a></li>
+<li><a href="#org1273127">2.4.2. varがかわいそうです、varもたまには使用したいです。いいですよね？</a></li>
+<li><a href="#orgc2b1c04">2.4.3. letとconstどっちを使うべき？</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org323057d">3. Arrow function</a>
+<ul>
+<li><a href="#orgfdc6f01">3.1. Arrow function以前の関数宣言方法</a>
+<ul>
+<li><a href="#orgfd565a3">3.1.1. 方法 1 - 関数宣言</a></li>
+<li><a href="#org34d5609">3.1.2. 方法 2 - 関数式</a></li>
+</ul>
+</li>
+<li><a href="#org4629cd2">3.2. 既存の問題点</a>
+<ul>
+<li><a href="#org1165e48">3.2.1. hoisting</a></li>
+<li><a href="#orgf6c28bf">3.2.2. constructor</a></li>
+<li><a href="#org5137dce">3.2.3. this</a></li>
+</ul>
+</li>
+<li><a href="#org2db0bd5">3.3. 例</a>
+<ul>
+<li><a href="#org7aef04a">3.3.1. 例 1 - arrow function作成</a></li>
+<li><a href="#org6d5220d">3.3.2. 例 2 - 返還の値だけ存在する場合、波括弧({})と"return"キーボード削除可能</a></li>
+<li><a href="#org9583446">3.3.3. 例 3 - Parameterが1つだけ存在する場合、括弧省略可能。</a></li>
+<li><a href="#org6e5545a">3.3.4. 例 4 - Closuresと一緒に使用</a></li>
+<li><a href="#org3759e21">3.3.5. 例 5 - 返還の値がobjectの場合</a></li>
+<li><a href="#org1b064ad">3.3.6. 例 6 - this</a></li>
+<li><a href="#org57aeb96">3.3.7. 例 7 - Constructorで使用</a></li>
+</ul>
+</li>
+<li><a href="#org9465876">3.4. 説明</a></li>
+<li><a href="#orgfef6fba">3.5. Tips</a>
+<ul>
+<li><a href="#orge90b2b6">3.5.1. "=&gt;"キーワードと既存の"function"キーワード、どっちを利用したらいい？</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgc3bcd3f">4. Template literal</a>
+<ul>
+<li><a href="#org39a3d5e">4.1. 既存の文字列作成方法</a></li>
+<li><a href="#org78564ce">4.2. 既存の問題点</a>
+<ul>
+<li><a href="#org5fe1255">4.2.1. 例</a></li>
+<li><a href="#orgb1ff9f9">4.2.2. 説明</a></li>
+</ul>
+</li>
+<li><a href="#orgb103caf">4.3. 例</a>
+<ul>
+<li><a href="#orgda15a08">4.3.1. 例 1 - 改行</a></li>
+<li><a href="#orgc48450f">4.3.2. 例 2 - 文字列に変数を入れる 1</a></li>
+<li><a href="#orgdd2de03">4.3.3. 例 3 - 文字列に変数を入れる 2</a></li>
+<li><a href="#org6f0a009">4.3.4. 例 4 - 文字列内部に'(quote), "(double quote)に入れる</a></li>
+<li><a href="#org0535ca8">4.3.5. 例 5 - `(バックティック)の中で$表示。</a></li>
+<li><a href="#org3161858">4.3.6. 例 6 - `(バックティック)の中で${}表示。</a></li>
+</ul>
+</li>
+<li><a href="#orgf573c42">4.4. 説明</a></li>
+<li><a href="#orgfa3831c">4.5. Tips</a>
+<ul>
+<li><a href="#org132b9a0">4.5.1. 改行の際、indentの問題</a></li>
+<li><a href="#orgb9e3fc0">4.5.2. ObjectをString interpolationを利用して文字列を表現する場合の問題</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org6e5e5ec" class="outline-2">
+<h2 id="org6e5e5ec"><span class="section-number-2">1.</span> JS</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org4d48553" class="outline-3">
+<h3 id="org4d48553"><span class="section-number-3">1.1.</span> 始める前に</h3>
+<div class="outline-text-3" id="text-1-1">
+</div>
+<div id="outline-container-org1b64e34" class="outline-4">
+<h4 id="org1b64e34"><span class="section-number-4">1.1.1.</span> カオスのJS</h4>
+<div class="outline-text-4" id="text-1-1-1">
+</div>
+<ol class="org-ol">
+<li><a id="org2c8d010"></a>'b' + 'a' + + 'a' + 'a'<br />
+<div class="outline-text-5" id="text-1-1-1-1">
+<p>
+intro/baaa.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">console.log(('b' + 'a' + + 'a' + 'a').toLowerCase()); // &gt; ??
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org3c9e6e5"></a>typeof<br />
+<div class="outline-text-5" id="text-1-1-1-2">
+<p>
+intro/typeof.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">console.log("typeof ''");
+console.log(typeof ''); // &gt; ??
+console.log();
+
+console.log("typeof 's'");
+console.log(typeof 's'); // &gt; ??
+console.log();
+
+console.log("typeof 30");
+console.log(typeof 30); // &gt; ??
+console.log();
+
+console.log("typeof true");
+console.log(typeof true); // &gt; ??
+console.log();
+
+console.log("typeof undefined");
+console.log(typeof undefined); // &gt; ??
+console.log();
+
+console.log("typeof {a:1}");
+console.log(typeof {a:1}); // &gt; ??
+console.log();
+
+console.log("typeof function(){}");
+console.log(typeof function(){}); // &gt; ??
+console.log();
+
+console.log("typeof [1, 2, 4]");
+console.log(typeof [1, 2, 4]); // &gt; ??
+console.log();
+
+console.log("typeof null");
+console.log(typeof null); // &gt; ??
+console.log();
+
+console.log("typeof NaN");
+console.log(typeof NaN); // &gt; ??
+console.log();
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org31e5175"></a>Math.Max() &gt; Math.Min()<br />
+<div class="outline-text-5" id="text-1-1-1-3">
+<p>
+intro/maxMin.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">console.log(Math.min() &gt; Math.max()); // &gt; ??
+console.log(Math.min() &lt; Math.max()); // &gt; ??
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-org340019d" class="outline-4">
+<h4 id="org340019d"><span class="section-number-4">1.1.2.</span> なんでこうなったか？</h4>
+<div class="outline-text-4" id="text-1-1-2">
+<ul class="org-ul">
+<li>なるべくエラーを出さないのを前提にしてデザインした言語</li>
+<li>開発期間が短かった。</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org179ad41" class="outline-4">
+<h4 id="org179ad41"><span class="section-number-4">1.1.3.</span> 結果は？</h4>
+<div class="outline-text-4" id="text-1-1-3">
+<ul class="org-ul">
+<li>JSは単なるおもちゃ言語だと思う。</li>
+<li>JSはcopy &amp; pasteでも十分だと思う。</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org86b89ac" class="outline-3">
+<h3 id="org86b89ac"><span class="section-number-3">1.2.</span> JSを学ばなければならない理由</h3>
+<div class="outline-text-3" id="text-1-2">
+<ul class="org-ul">
+<li>frontで動く唯一の言語(他の選択肢がない。）</li>
+<li>script言語の中ですごく速い。</li>
+<li>ES6からは言語自体の機能が強化。</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org7392928" class="outline-3">
+<h3 id="org7392928"><span class="section-number-3">1.3.</span> この発表会の目的</h3>
+<div class="outline-text-3" id="text-1-3">
+<ul class="org-ul">
+<li>JSのいい所を学び生産性を上げたい。</li>
+<li>情報共有を会社の文化にさせたい。</li>
+<li>vim信者を育てたい。</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgdc57230" class="outline-3">
+<h3 id="orgdc57230"><span class="section-number-3">1.4.</span> Tips</h3>
+<div class="outline-text-3" id="text-1-4">
+<ul class="org-ul">
+<li>分からない所があったら質問してください。</li>
+<li>発表会が終わった後でも質問してもいいです！</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgcc14372" class="outline-2">
+<h2 id="orgcc14372"><span class="section-number-2">2.</span> Variable</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orgbaa3d79" class="outline-3">
+<h3 id="orgbaa3d79"><span class="section-number-3">2.1.</span> 既存の問題点</h3>
+<div class="outline-text-3" id="text-2-1">
+</div>
+<div id="outline-container-org23680ff" class="outline-4">
+<h4 id="org23680ff"><span class="section-number-4">2.1.1.</span> 定数</h4>
+<div class="outline-text-4" id="text-2-1-1">
+</div>
+<ol class="org-ol">
+<li><a id="orgb682b57"></a>ES6の以前定数を宣言する為には？<br />
+<div class="outline-text-5" id="text-2-1-1-1">
+<ul class="org-ul">
+<li>JSの開発者達が集まって、大文字で作成した値は絶対変更しないと約束する。</li>
+</ul>
+</div>
+</li>
+<li><a id="orgb604072"></a>例<br />
+<ol class="org-ol">
+<li><a id="org2bc2cc5"></a>例 1 - Ideal<br />
+<div class="outline-text-6" id="text-2-1-1-2-1">
+<p>
+variable/old/varConstantIdeal.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">var PLEASE_DO_NOT_CHANGE = 0;
+console.log(PLEASE_DO_NOT_CHANGE); // 0
+
+// 100万行の長いコードの後
+
+console.log(PLEASE_DO_NOT_CHANGE); // 0
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orgd4b1689"></a>例 2 - Bad<br />
+<div class="outline-text-6" id="text-2-1-1-2-2">
+<p>
+variable/old/varConstantBad.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">var PLEASE_DO_NOT_CHANGE = 0;
+console.log(PLEASE_DO_NOT_CHANGE); // 0
+
+// 100万行の長いコードの中
+// 前日、飲んだお酒が脳内で残っており、ぼんやりした状態で作成したコード
+PLEASE_DO_NOT_CHANGE = 1;
+// また、100万行の長いコードの後
+
+console.log(PLEASE_DO_NOT_CHANGE); // 1
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</li>
+
+<li><a id="org21ca4c8"></a>何が問題だったんだろう？<br />
+<div class="outline-text-5" id="text-2-1-1-3">
+<ul class="org-ul">
+<li>前日、飲んだお酒</li>
+<li>一つのfileに100万行もある、今のプロジェクトコード</li>
+<li>他の人を信用しすぎた開発者</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org236e8b7" class="outline-4">
+<h4 id="org236e8b7"><span class="section-number-4">2.1.2.</span> Scope</h4>
+<div class="outline-text-4" id="text-2-1-2">
+</div>
+<ol class="org-ol">
+<li><a id="orge0faa6d"></a>Scopeとは?<br />
+<ol class="org-ol">
+<li><a id="org6cddaa1"></a>説明<br />
+<div class="outline-text-6" id="text-2-1-2-1-1">
+<ul class="org-ul">
+<li>JSに限定した概念ではない。</li>
+<li>Scopeは全ての識別子（変数名、関数名、クラス名等） が宣言した位置によって接近できる、有効範囲。</li>
+<li>既存のJSのvarは特殊なscopeをもっている。</li>
+</ul>
+</div>
+</li>
+<li><a id="org536bd6d"></a>種類<br />
+<ol class="org-ol">
+<li><a id="org9b09929"></a>block scope<br />
+<div class="outline-text-7" id="text-2-1-2-1-2-1">
+<ul class="org-ul">
+<li>block({})によって生成される有効範囲</li>
+</ul>
+</div>
+</li>
+<li><a id="org58ddef5"></a>関数 scope<br />
+<div class="outline-text-7" id="text-2-1-2-1-2-2">
+<ul class="org-ul">
+<li>関数によって生成される有効範囲</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="orgdc52386"></a>関連知識<br />
+<ol class="org-ol">
+<li><a id="orgc15f092"></a>文, 式, 値<br />
+<ol class="org-ol">
+<li><a id="org9dca1c3"></a>文(statement)<br />
+<ol class="org-ol">
+<li><a id="org782d7eb"></a>特徴<br />
+<div class="outline-text-9" id="text-2-1-2-1-3-1-1-1">
+<ul class="org-ul">
+<li>結果をreturnしない。</li>
+<li>文はblockを生成する。</li>
+</ul>
+</div>
+</li>
+<li><a id="org4bb14dc"></a>例<br />
+<div class="outline-text-9" id="text-2-1-2-1-3-1-1-2">
+<ul class="org-ul">
+<li>if文</li>
+<li>for文</li>
+<li>while文</li>
+<li>switch-case文</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="orge7e9239"></a>式(expression)<br />
+<ol class="org-ol">
+<li><a id="org659ea60"></a>特徴<br />
+<div class="outline-text-9" id="text-2-1-2-1-3-1-2-1">
+<ul class="org-ul">
+<li>結果をreturnする。</li>
+<li>値になれる。</li>
+</ul>
+</div>
+</li>
+<li><a id="org4732e59"></a>例<br />
+<div class="outline-text-9" id="text-2-1-2-1-3-1-2-2">
+<ul class="org-ul">
+<li>1 + 2</li>
+<li>hello()</li>
+<li>'abc' + 'def'</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="org5d6cd78"></a>値(value)<br />
+<ol class="org-ol">
+<li><a id="orgb1557a9"></a>特徴<br />
+<div class="outline-text-9" id="text-2-1-2-1-3-1-3-1">
+<ul class="org-ul">
+<li>式が評価された結果 (1 + 2 =&gt; 3)</li>
+<li>値そのもの (10)</li>
+</ul>
+</div>
+</li>
+<li><a id="org844314b"></a>例<br />
+<div class="outline-text-9" id="text-2-1-2-1-3-1-3-2">
+<ul class="org-ul">
+<li>3</li>
+<li>'hello'</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a id="org7df9228"></a>例<br />
+<ol class="org-ol">
+<li><a id="org75a03d6"></a>例 1 - 関数 scope 1<br />
+<div class="outline-text-6" id="text-2-1-2-2-1">
+<p>
+variable/old/varFunctionScope.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">var x = 'global x';
+
+function foo() {
+  var x = 'inside function x';
+  console.log(x);
+}
+
+console.log(x); //&gt; ??
+
+foo(); //&gt; ??
+
+console.log(x); //&gt; ??
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org858d8d9"></a>例 2 - 関数 scope 2 - globalから接近<br />
+<div class="outline-text-6" id="text-2-1-2-2-2">
+<p>
+variable/old/varFunctionScopeGlobalAccess.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">var x = 'global x';
+
+function foo() {
+  x = 'inside function x';
+  console.log(x);
+}
+
+console.log(x); //&gt; ??
+
+foo(); //&gt; ??
+
+console.log(x); //&gt; ??
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org864c98d"></a>例 3 - block scope 1 - if<br />
+<div class="outline-text-6" id="text-2-1-2-2-3">
+<p>
+variable/old/varScopeIf.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">var x = 'global x';
+
+if (true) {
+  var x = 'inside if x';
+  console.log(x); //&gt; ??
+}
+
+console.log(x); //&gt; ??
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orgd3f272f"></a>例 4 - block scope 2 - for<br />
+<div class="outline-text-6" id="text-2-1-2-2-4">
+<p>
+variable/old/varScopeFor.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">for (var i = 0; i &lt; 10; i++) {
+  console.log(i); //&gt; ??
+}
+
+console.log();
+console.log(i); //&gt; ??
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orga23c58a"></a>例 5 - block scope 3 - for<br />
+<div class="outline-text-6" id="text-2-1-2-2-5">
+<p>
+variable/old/varScopeForGlobal.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">var i = 30;
+console.log(i); //&gt; ??
+
+for (var i = 0; i &lt; 10; i++) {
+  console.log(i); //&gt; ??
+}
+
+console.log(i); //&gt; ??
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org886ee42"></a>例 6 - block scope 4 - for setTimeout<br />
+<div class="outline-text-6" id="text-2-1-2-2-6">
+<p>
+variable/old/varScopeForSettimeout.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">for (var i = 0; i &lt; 10; i++) {
+  setTimeout(() =&gt; {
+    console.log(i); //&gt; ??
+  }, (i + 1) * 1000);
+}
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org36e278c"></a>例 7 - block scope 5 - 例 6 修正<br />
+<div class="outline-text-6" id="text-2-1-2-2-7">
+<p>
+variable/old/varScopeForSettimeoutFix.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">for (var i = 0; i &lt; 10; i++) {
+  (function (i) {
+    setTimeout(() =&gt; {
+      console.log(i); //&gt; ??
+    }, (i + 1) * 1000);
+  })(i);
+}
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-org954d0b3" class="outline-4">
+<h4 id="org954d0b3"><span class="section-number-4">2.1.3.</span> Hoisting</h4>
+<div class="outline-text-4" id="text-2-1-3">
+</div>
+<ol class="org-ol">
+<li><a id="org41de3e7"></a>hoistingは?<br />
+<ol class="org-ol">
+<li><a id="org0ecb83b"></a>説明<br />
+<div class="outline-text-6" id="text-2-1-3-1-1">
+<ul class="org-ul">
+<li>hoist =&gt; 持ち上げる, つり上げる</li>
+<li>変数と関数を実行する前にメモリに割り当てるという意味。</li>
+<li>変数の宣言と初期化を分離し、宣言だけをコードの先頭に移動されるもの。</li>
+<li>説明だけでは難しい概念なので、例を見ながら理解するのがいい。</li>
+<li><a href="https://developer.mozilla.org/ja/docs/Glossary/Hoisting">https://developer.mozilla.org/ja/docs/Glossary/Hoisting</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Glossary/Hoisting">https://developer.mozilla.org/en-US/docs/Glossary/Hoisting</a></li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="org0b6033d"></a>例<br />
+<ol class="org-ol">
+<li><a id="orgc915402"></a>例 1<br />
+<div class="outline-text-6" id="text-2-1-3-2-1">
+<p>
+variable/old/hoistingVariable.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">console.log(name); //&gt; ??
+
+var name = 'Shin';
+
+console.log(name); //&gt; ??
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orgbdc2f97"></a>例 2<br />
+<div class="outline-text-6" id="text-2-1-3-2-2">
+<p>
+variable/old/hoistingFunction.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">console.log(square(4)); //&gt; ??
+
+function square(x) {
+    return x * x;
+}
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org36c8def"></a>例 3<br />
+<div class="outline-text-6" id="text-2-1-3-2-3">
+<p>
+variable/old/hoistingVariableAndFunction.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">console.log(square); //&gt; ??
+
+console.log(square(4)); //&gt; ??
+
+var square = 0;
+function square(x) {
+  return x * x;
+}
+
+console.log(square); //&gt; ??
+
+console.log(square(4)); //&gt; ??
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orgd8bb388"></a>例 4 - 例 3 修正<br />
+<div class="outline-text-6" id="text-2-1-3-2-4">
+<p>
+variable/old/hoistingVariableAndFunctionFix.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">console.log(square); //&gt; ??
+
+console.log(square(4)); //&gt; ??
+
+var square = 0;
+var square = function(x) {
+    return x * x;
+}
+
+console.log(square); //&gt; ??
+
+console.log(square(4)); //&gt; ??
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org8f30d44" class="outline-3">
+<h3 id="org8f30d44"><span class="section-number-3">2.2.</span> 例</h3>
+<div class="outline-text-3" id="text-2-2">
+</div>
+<div id="outline-container-orgc6b575f" class="outline-4">
+<h4 id="orgc6b575f"><span class="section-number-4">2.2.1.</span> let</h4>
+<div class="outline-text-4" id="text-2-2-1">
+</div>
+<ol class="org-ol">
+<li><a id="org69d3c7f"></a>例 1 - 変数宣言<br />
+<div class="outline-text-5" id="text-2-2-1-1">
+<p>
+variable/new/let.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">let a = 1;
+console.log(a); //&gt; ??
+
+a = 2;
+console.log(a); //&gt; ??
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org4f63854"></a>例 2 - "let"キーワードを再宣言する場合<br />
+<div class="outline-text-5" id="text-2-2-1-2">
+<p>
+variable/new/letAgain.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">let a = 1;
+console.log(a); //&gt; ??
+
+let a = 2;
+console.log(a); //&gt; ??
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orge0dc5b3"></a>例 3 - 関数 scope 1<br />
+<div class="outline-text-5" id="text-2-2-1-3">
+<p>
+variable/new/functionScope.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">let x = 'global x';
+
+function foo() {
+  let x = 'inside function x';
+  console.log(x);
+}
+
+console.log(x); //&gt; ??
+
+foo(); //&gt; ??
+
+console.log(x); //&gt; ??
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org0910081"></a>例 4 - 関数 scope 2 - globalに接近<br />
+<div class="outline-text-5" id="text-2-2-1-4">
+<p>
+variable/new/functionScopeGlobal.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">let x = 'global x';
+
+function foo() {
+  x = 'inside function x';
+  console.log(x);
+}
+
+console.log(x); //&gt; ??
+
+foo(); //&gt; ??
+
+console.log(x); //&gt; ??
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orgfa23299"></a>例 5 - block scope 1 - if<br />
+<div class="outline-text-5" id="text-2-2-1-5">
+<p>
+variable/new/ifGlobal.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">let x = 'global x';
+
+if (true) {
+  let x = 'inside if x';
+  console.log(x); //&gt; ??
+}
+
+console.log(x); //&gt; ??
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orgc69a4f2"></a>例 6 - block scope 2 - if<br />
+<div class="outline-text-5" id="text-2-2-1-6">
+<p>
+variable/new/ifInside.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">if (true) {
+  let x = 'inside if x';
+  console.log(x); //&gt; ??
+}
+
+console.log(x); //&gt; ??
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orgfb07ae6"></a>例 7 - block scope 2 - for<br />
+<div class="outline-text-5" id="text-2-2-1-7">
+<p>
+variable/new/for.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">for (let i = 0; i &lt; 10; i++) {
+  console.log(i); //&gt; ??
+}
+
+console.log();
+console.log(i); //&gt; ??
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org250cf3f"></a>例 8 - block scope 4 - setTimeout<br />
+<div class="outline-text-5" id="text-2-2-1-8">
+<p>
+variable/new/setTimeout.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">for (let i = 0; i &lt; 10; i++) {
+  setTimeout(() =&gt; {
+    console.log(i); //&gt; ??
+  }, (i + 1) * 1000);
+}
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org41483e6"></a>例 9 - 宣言前に変数を使用<br />
+<div class="outline-text-5" id="text-2-2-1-9">
+<p>
+variable/new/beforeCreate.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">console.log(name); //&gt; ??
+
+let name = 'Shin';
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org84b556f"></a>例 10 - 最初の宣言の際、値を入れない場合<br />
+<div class="outline-text-5" id="text-2-2-1-10">
+<p>
+variable/new/createWithoutAssign.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">let a;
+console.log(a); //&gt; ??
+
+a = 10;
+console.log(a); //&gt; ??
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orgfc672a9"></a>例 11 - letを後で使用する場合<br />
+<div class="outline-text-5" id="text-2-2-1-11">
+<p>
+variable/new/afterLet.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">a = 10;
+let a;
+
+console.log(a); //&gt; ??
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-org60cb1bc" class="outline-4">
+<h4 id="org60cb1bc"><span class="section-number-4">2.2.2.</span> const</h4>
+<div class="outline-text-4" id="text-2-2-2">
+</div>
+<ol class="org-ol">
+<li><a id="org57e90c4"></a>例 1 - 再宣言<br />
+<div class="outline-text-5" id="text-2-2-2-1">
+<p>
+variable/new/constAgain.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">const a = 1;
+console.log(a); //&gt; ??
+
+a = 2;
+console.log(a); //&gt; ??
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org38bb5c1"></a>例 2 - 最初の宣言の際、値を入れない場合<br />
+<div class="outline-text-5" id="text-2-2-2-2">
+<p>
+variable/new/constWithoutAssign.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">const a;
+console.log(a); //&gt; ??
+
+a = 1;
+console.log(a); //&gt; ??
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orgd6c9689"></a>例 3 - reference typeの場合 - 既に存在するpropertyの値変更<br />
+<div class="outline-text-5" id="text-2-2-2-3">
+<p>
+variable/new/constWithReferenceChangeProperty.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">const abc = {
+  a: 1,
+  b: 2,
+};
+
+abc.a = 5;
+
+console.dir(abc); //&gt; ??
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orga2736fd"></a>例 4 - reference typeの場合 - 新しいproperty追加<br />
+<div class="outline-text-5" id="text-2-2-2-4">
+<p>
+variable/new/constWithReferenceAddProperty.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">const abc = {
+  a: 1,
+  b: 2,
+};
+
+abc.c = 10;
+
+console.log(abc); //&gt; ??
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org9b68854"></a>例 5 - reference typeの場合 - 新しいobjectをassign<br />
+<div class="outline-text-5" id="text-2-2-2-5">
+<p>
+variable/new/constWithReferenceAssignNewReference.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">const abc = {
+  a: 1,
+  b: 2,
+};
+
+abc = {
+  a: 5,
+  b: 10,
+}
+
+console.log(abc); //&gt; ??
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org6c3e36f" class="outline-3">
+<h3 id="org6c3e36f"><span class="section-number-3">2.3.</span> 説明</h3>
+<div class="outline-text-3" id="text-2-3">
+</div>
+<div id="outline-container-orgea321a4" class="outline-4">
+<h4 id="orgea321a4"><span class="section-number-4">2.3.1.</span> TDZ(Temperal Dead Zone)</h4>
+<div class="outline-text-4" id="text-2-3-1">
+<ul class="org-ul">
+<li>JSのreperenceで「特定の場所ではrefences errorが発生しないといけない」を表現する為の名称</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgba62490" class="outline-4">
+<h4 id="orgba62490"><span class="section-number-4">2.3.2.</span> let</h4>
+<div class="outline-text-4" id="text-2-3-2">
+<ul class="org-ul">
+<li>定数ではない。</li>
+<li>既存の関数scopeが適用される。</li>
+<li>その上、block scopeも適用される。</li>
+<li>TDZ(Temperal Dead Zone)が適用される。</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org08180df" class="outline-4">
+<h4 id="org08180df"><span class="section-number-4">2.3.3.</span> const</h4>
+<div class="outline-text-4" id="text-2-3-3">
+<ul class="org-ul">
+<li>定数。</li>
+<li>既存の関数scopeが適用される。(letと同じ)</li>
+<li>その上、block scopeも適用される。(letと同じ)</li>
+<li>TDZ(Temperal Dead Zone)が適用される。(letと同じ)</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orga689329" class="outline-3">
+<h3 id="orga689329"><span class="section-number-3">2.4.</span> Tips</h3>
+<div class="outline-text-3" id="text-2-4">
+</div>
+<div id="outline-container-org84f6496" class="outline-4">
+<h4 id="org84f6496"><span class="section-number-4">2.4.1.</span> Object.freeze()</h4>
+<div class="outline-text-4" id="text-2-4-1">
+</div>
+<ol class="org-ol">
+<li><a id="org82b50f6"></a>説明<br />
+<div class="outline-text-5" id="text-2-4-1-1">
+<ul class="org-ul">
+<li>reference typeの変更を防ぎたい場合、Object.freeze()を使用。</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze</a></li>
+</ul>
+</div>
+</li>
+<li><a id="org541f758"></a>例<br />
+<ol class="org-ol">
+<li><a id="org197261b"></a>例 1 - 使用方法<br />
+<div class="outline-text-6" id="text-2-4-1-2-1">
+<p>
+variable/tips/freezeBasicUsage.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">const obj = {
+  prop: 10
+};
+
+Object.freeze(obj);
+
+obj.prop = 999;
+
+console.log(obj); //&gt; ??
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orgd840b90"></a>例 2 - strict mode<br />
+<div class="outline-text-6" id="text-2-4-1-2-2">
+<p>
+variable/tips/freezeStrictMode.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">'use strict';
+
+const obj = {
+  prop: 10
+};
+
+Object.freeze(obj);
+
+obj.prop = 999;
+
+console.log(obj); //&gt; ??
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orgeb47386"></a>例 3 - objectの中にobjectがある場合<br />
+<div class="outline-text-6" id="text-2-4-1-2-3">
+<p>
+variable/tips/freezeObjectInsideObject.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">'use strict';
+
+const obj = {
+  objProp: {
+    prop: 10
+  }
+};
+
+Object.freeze(obj);
+
+obj.objProp.prop = 999;
+
+console.log(obj); //&gt; ??
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org384777d"></a>例 4 - objectの中にobjectがある場合、対処法<br />
+<div class="outline-text-6" id="text-2-4-1-2-4">
+<p>
+variable/tips/freezeObjectInsideObjectRescue.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">'use strict';
+
+const obj = {
+  objProp: {
+    prop: 10
+  }
+};
+
+Object.freeze(obj);
+Object.freeze(obj.objProp);
+
+obj.objProp.prop = 999;
+
+console.log(obj); //&gt; ??
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-org1273127" class="outline-4">
+<h4 id="org1273127"><span class="section-number-4">2.4.2.</span> varがかわいそうです、varもたまには使用したいです。いいですよね？</h4>
+<div class="outline-text-4" id="text-2-4-2">
+</div>
+<ol class="org-ol">
+<li><a id="org7e98635"></a>説明<br />
+<div class="outline-text-5" id="text-2-4-2-1">
+<ul class="org-ul">
+<li>現在(2023年)基準では使用しないでください。</li>
+</ul>
+</div>
+</li>
+<li><a id="orgeecec7a"></a>理由<br />
+<div class="outline-text-5" id="text-2-4-2-2">
+<ul class="org-ul">
+<li>varの場合定数変数かどうかの区別が難しい。</li>
+<li>varの場合基本的に定数ではないのでコードの可読性が下がる。</li>
+<li>varは他のプログラミング言語と違う動きをもっている。</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-orgc2b1c04" class="outline-4">
+<h4 id="orgc2b1c04"><span class="section-number-4">2.4.3.</span> letとconstどっちを使うべき？</h4>
+<div class="outline-text-4" id="text-2-4-3">
+</div>
+<ol class="org-ol">
+<li><a id="org64ed054"></a>説明<br />
+<div class="outline-text-5" id="text-2-4-3-1">
+<ul class="org-ul">
+<li>できる限りconstを使用すること。</li>
+</ul>
+</div>
+</li>
+<li><a id="org9a54674"></a>理由<br />
+<div class="outline-text-5" id="text-2-4-3-2">
+<ul class="org-ul">
+<li>constを使用すると変数の値が変更されないと確信して、コードを読める。</li>
+<li>意図しなかった変更を予防できる。</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-org323057d" class="outline-2">
+<h2 id="org323057d"><span class="section-number-2">3.</span> Arrow function</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-orgfdc6f01" class="outline-3">
+<h3 id="orgfdc6f01"><span class="section-number-3">3.1.</span> Arrow function以前の関数宣言方法</h3>
+<div class="outline-text-3" id="text-3-1">
+</div>
+<div id="outline-container-orgfd565a3" class="outline-4">
+<h4 id="orgfd565a3"><span class="section-number-4">3.1.1.</span> 方法 1 - 関数宣言</h4>
+<div class="outline-text-4" id="text-3-1-1">
+<p>
+arrow/old/functionDeclare.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">function sayMyName() {
+  console.log('shin');
+}
+
+sayMyName(); // &gt; ??
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org34d5609" class="outline-4">
+<h4 id="org34d5609"><span class="section-number-4">3.1.2.</span> 方法 2 - 関数式</h4>
+<div class="outline-text-4" id="text-3-1-2">
+<p>
+arrow/old/functionExpression.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">const sayMyName = function () {
+  console.log('shin');
+}
+
+sayMyName(); // &gt; ??
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4629cd2" class="outline-3">
+<h3 id="org4629cd2"><span class="section-number-3">3.2.</span> 既存の問題点</h3>
+<div class="outline-text-3" id="text-3-2">
+</div>
+<div id="outline-container-org1165e48" class="outline-4">
+<h4 id="org1165e48"><span class="section-number-4">3.2.1.</span> hoisting</h4>
+<div class="outline-text-4" id="text-3-2-1">
+</div>
+<ol class="org-ol">
+<li><a id="orgc8e1445"></a>例<br />
+<ol class="org-ol">
+<li><a id="orga915bcf"></a>例 1 - 関数宣言使用<br />
+<div class="outline-text-6" id="text-3-2-1-1-1">
+<p>
+arrow/old/functionDeclareHoisting.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">sayMyName(); // &gt; ??
+
+function sayMyName() {
+  console.log('shin');
+}
+
+sayMyName(); // &gt; ??
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org42c96e0"></a>例 2 - 関数式使用<br />
+<div class="outline-text-6" id="text-3-2-1-1-2">
+<p>
+arrow/old/functionExpressionHoisting.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">sayMyName(); // &gt; ??
+
+const sayMyName = function () {
+  console.log('shin');
+}
+
+sayMyName(); // &gt; ??
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</li>
+
+<li><a id="org4243d0c"></a>説明<br />
+<div class="outline-text-5" id="text-3-2-1-2">
+<ul class="org-ul">
+<li>関数宣言で使用する時と関数式で使用する時のhoistingが違う</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-orgf6c28bf" class="outline-4">
+<h4 id="orgf6c28bf"><span class="section-number-4">3.2.2.</span> constructor</h4>
+<div class="outline-text-4" id="text-3-2-2">
+</div>
+<ol class="org-ol">
+<li><a id="orgae9b701"></a>例<br />
+<ol class="org-ol">
+<li><a id="orge3b0e45"></a>例 1 - constructor使用法<br />
+<div class="outline-text-6" id="text-3-2-2-1-1">
+<p>
+arrow/old/constructorFunction.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">var People = function (name) {
+  this.name = name;
+
+  this.sayMyName = function() {
+    console.log(this.name);
+  }
+};
+
+var person = new People('shin');
+person.sayMyName();
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org300fbad"></a>例 2 - 関数はconstructorになれる。<br />
+<div class="outline-text-6" id="text-3-2-2-1-2">
+<p>
+arrow/old/allFunctionIsConstructorFunction.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">var add = function (a, b) {
+  return a + b;
+};
+
+var isntItBug = new add();
+
+console.dir(isntItBug);
+console.dir(add);
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</li>
+
+<li><a id="orgcf66dc5"></a>説明<br />
+<div class="outline-text-5" id="text-3-2-2-2">
+<ul class="org-ul">
+<li>関数を生成すると自動的にその関数にconstructorが繋がる。</li>
+<li>constructorで使用したくない関数でもconstructor機能をもってる為、
+無駄なresourceを使用してしまう。</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org5137dce" class="outline-4">
+<h4 id="org5137dce"><span class="section-number-4">3.2.3.</span> this</h4>
+<div class="outline-text-4" id="text-3-2-3">
+</div>
+<ol class="org-ol">
+<li><a id="org2547f50"></a>例<br />
+<ol class="org-ol">
+<li><a id="org4066a59"></a>例 1 - this binding<br />
+<div class="outline-text-6" id="text-3-2-3-1-1">
+<p>
+arrow/old/this.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">function Person() {
+  this.age = 0;
+
+  setInterval(function growUp() {
+    this.age++;
+    console.log(this.age);
+  }, 1000);
+}
+
+var p = new Person();
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org724858e"></a>例 2 - thisを変数に入れて使用<br />
+<div class="outline-text-6" id="text-3-2-3-1-2">
+<p>
+arrow/old/thisFix.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">function Person() {
+  var that = this;
+  that.age = 0;
+
+  setInterval(function growUp() {
+    that.age++;
+    console.log(that.age);
+  }, 1000);
+}
+
+var p = new Person();
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</li>
+
+<li><a id="org6a31043"></a>説明<br />
+<div class="outline-text-5" id="text-3-2-3-2">
+<ul class="org-ul">
+<li>methodの場合thisがglobalになっている。</li>
+<li>不用なthis bindingにより、無駄なresource使用してしまう。</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org2db0bd5" class="outline-3">
+<h3 id="org2db0bd5"><span class="section-number-3">3.3.</span> 例</h3>
+<div class="outline-text-3" id="text-3-3">
+</div>
+<div id="outline-container-org7aef04a" class="outline-4">
+<h4 id="org7aef04a"><span class="section-number-4">3.3.1.</span> 例 1 - arrow function作成</h4>
+<div class="outline-text-4" id="text-3-3-1">
+<p>
+arrow/new/arrow.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">// var sayMyName = function () {
+//   console.log('shin');
+// }
+
+const sayMyName = () =&gt; {
+  console.log('shin');
+}
+
+sayMyName(); //&gt; ??
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6d5220d" class="outline-4">
+<h4 id="org6d5220d"><span class="section-number-4">3.3.2.</span> 例 2 - 返還の値だけ存在する場合、波括弧({})と"return"キーボード削除可能</h4>
+<div class="outline-text-4" id="text-3-3-2">
+<p>
+arrow/new/arrowRemoveParen.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">// var getName = function () {
+//   return 'shin';
+// }
+const getName = () =&gt; 'shin';
+
+console.log(getName()); //&gt; ??
+console.log();
+
+// var add = function(a, b) {
+//   return a + b;
+// }
+const add = (a, b) =&gt; a + b;
+
+console.log(add(1, 2));
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9583446" class="outline-4">
+<h4 id="org9583446"><span class="section-number-4">3.3.3.</span> 例 3 - Parameterが1つだけ存在する場合、括弧省略可能。</h4>
+<div class="outline-text-4" id="text-3-3-3">
+<p>
+arrow/new/arrowOnlyOneParameter.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">// const square = function(n) {
+//   return n * n
+// }
+
+// const square = (n) =&gt; {
+//   return n * n
+// }
+
+// const square = (n) =&gt; n * n;
+
+const square = n =&gt; n * n;
+
+console.log(square(10)); //&gt; ??
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6e5545a" class="outline-4">
+<h4 id="org6e5545a"><span class="section-number-4">3.3.4.</span> 例 4 - Closuresと一緒に使用</h4>
+<div class="outline-text-4" id="text-3-3-4">
+<p>
+arrow/new/arrowWithClosures.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">// const add = function(num1) {
+//   return function(num2) {
+//     return num1 + num2;
+//   }
+// }
+
+const add = (num1) =&gt; (num2) =&gt; num1 + num2;
+
+const add2 = add(2);
+
+console.log(add2(10)); //&gt; ??
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3759e21" class="outline-4">
+<h4 id="org3759e21"><span class="section-number-4">3.3.5.</span> 例 5 - 返還の値がobjectの場合</h4>
+<div class="outline-text-4" id="text-3-3-5">
+<p>
+arrow/new/arrowReturnObject.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">// const f = function() {
+//   return {
+//     x: 10,
+//     y: 20
+//   }
+// }
+
+// const f = () =&gt; {
+//   return {
+//     x: 10,
+//     y: 20
+//   }
+// }
+
+// // Do not!
+// const f = () =&gt; {
+//   x: 10,
+//   y: 20
+// }
+
+const f = () =&gt; ({
+  x: 10,
+  y: 20
+});
+
+console.log(f());
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1b064ad" class="outline-4">
+<h4 id="org1b064ad"><span class="section-number-4">3.3.6.</span> 例 6 - this</h4>
+<div class="outline-text-4" id="text-3-3-6">
+<p>
+arrow/new/arrowThis.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">// function Person() {
+//   const that = this;
+//   that.age = 0;
+
+//   setInterval(() =&gt; {
+//     that.age++;
+//     console.log(that.age);
+//   }, 1000);
+// }
+
+function Person() {
+  this.age = 0;
+
+  setInterval(() =&gt; {
+    this.age++;
+    console.log(this.age);
+  }, 1000);
+}
+
+
+const p = new Person();
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org57aeb96" class="outline-4">
+<h4 id="org57aeb96"><span class="section-number-4">3.3.7.</span> 例 7 - Constructorで使用</h4>
+<div class="outline-text-4" id="text-3-3-7">
+<p>
+arrow/new/arrowConstructor.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">const add = (a, b) =&gt; a + b;
+
+const isntItBug = new add();
+
+console.dir(isntItBug);
+console.dir(add);
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9465876" class="outline-3">
+<h3 id="org9465876"><span class="section-number-3">3.4.</span> 説明</h3>
+<div class="outline-text-3" id="text-3-4">
+<ul class="org-ul">
+<li>既存functionの宣言を短縮。</li>
+<li>thisをbindingしない。</li>
+<li>constructorで使用できない。</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgfef6fba" class="outline-3">
+<h3 id="orgfef6fba"><span class="section-number-3">3.5.</span> Tips</h3>
+<div class="outline-text-3" id="text-3-5">
+</div>
+<div id="outline-container-orge90b2b6" class="outline-4">
+<h4 id="orge90b2b6"><span class="section-number-4">3.5.1.</span> "=&gt;"キーワードと既存の"function"キーワード、どっちを利用したらいい？</h4>
+<div class="outline-text-4" id="text-3-5-1">
+</div>
+<ol class="org-ol">
+<li><a id="org0471530"></a>説明<br />
+<div class="outline-text-5" id="text-3-5-1-1">
+<ul class="org-ul">
+<li>ES6を使用できる環境だったら"function"キーワードを使用しないこと!</li>
+<li>"function"キーワードを利用しない方法
+<ul class="org-ul">
+<li>普通の関数 =&gt; arrow function</li>
+<li>objectのmethod =&gt; concised method</li>
+<li>constructor関数 =&gt; class</li>
+</ul></li>
+</ul>
+</div>
+</li>
+<li><a id="orgb4df985"></a>理由<br />
+<div class="outline-text-5" id="text-3-5-1-2">
+<ul class="org-ul">
+<li>"function"キーワードを利用した場合、ブラウザーごとに異なることがあるのでbugになる可能性が存在。</li>
+<li>"function"キーワードで動作する関数は、理解しにくい所がある。</li>
+<li>arrow functionは不用なproperty(argument, constructor等)がない為、性能的にもいい。</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc3bcd3f" class="outline-2">
+<h2 id="orgc3bcd3f"><span class="section-number-2">4.</span> Template literal</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-org39a3d5e" class="outline-3">
+<h3 id="org39a3d5e"><span class="section-number-3">4.1.</span> 既存の文字列作成方法</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+templateLiteral/old/declareString.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">const str1 = 'string1';
+const str2 = "string2";
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org78564ce" class="outline-3">
+<h3 id="org78564ce"><span class="section-number-3">4.2.</span> 既存の問題点</h3>
+<div class="outline-text-3" id="text-4-2">
+</div>
+<div id="outline-container-org5fe1255" class="outline-4">
+<h4 id="org5fe1255"><span class="section-number-4">4.2.1.</span> 例</h4>
+<div class="outline-text-4" id="text-4-2-1">
+</div>
+<ol class="org-ol">
+<li><a id="org0e6cfe9"></a>例 1 - 改行<br />
+<div class="outline-text-5" id="text-4-2-1-1">
+<p>
+templateLiteral/old/newLine.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">const newLineEx1 = 'abc\ndef';
+
+const newLineEx2 = 'abc\n' +
+                   'def';
+
+console.log(newLineEx1);
+console.log();
+
+console.log(newLineEx2);
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org30888a1"></a>例 2 - 文字列に変数を入れる 1<br />
+<div class="outline-text-5" id="text-4-2-1-2">
+<p>
+templateLiteral/old/insertVariable1.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">const name = 'シン';
+const hello = 'おはよう';
+const age = 99;
+
+console.log(name + '、 ' + hello + '! ' + age + '歳の誕生日おめでとう!');
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org7e4528e"></a>例 3 - 文字列に変数を入れる 2<br />
+<div class="outline-text-5" id="text-4-2-1-3">
+<p>
+templateLiteral/old/insertVariable2.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">const one = 1;
+const two = 2;
+
+console.log(one + ' + ' + two + ' = ' + (one + two));
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org16528e4"></a>例 4 - 文字列の中に '(quote), "(double quote)入れる<br />
+<div class="outline-text-5" id="text-4-2-1-4">
+<p>
+templateLiteral/old/quote.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">const str1 = '"""""""""';
+const str2 = "'''''''''";
+const str3 = "\"hello\"";
+
+console.log(str1); //&gt; ??
+console.log(str2); //&gt; ??
+console.log(str3); //&gt; ??
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-orgb1ff9f9" class="outline-4">
+<h4 id="orgb1ff9f9"><span class="section-number-4">4.2.2.</span> 説明</h4>
+<div class="outline-text-4" id="text-4-2-2">
+<ul class="org-ul">
+<li>文字列内部に改行がある場合可読性が悪い。</li>
+<li>文字列内部に変数を入れにくい。</li>
+<li>文字列内部に'(quote), "(double quote)を入れるのが不便。</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb103caf" class="outline-3">
+<h3 id="orgb103caf"><span class="section-number-3">4.3.</span> 例</h3>
+<div class="outline-text-3" id="text-4-3">
+</div>
+<div id="outline-container-orgda15a08" class="outline-4">
+<h4 id="orgda15a08"><span class="section-number-4">4.3.1.</span> 例 1 - 改行</h4>
+<div class="outline-text-4" id="text-4-3-1">
+<p>
+templateLiteral/new/newLine.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">const newLineEx = `abc
+def`;
+
+console.log(newLineEx);
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc48450f" class="outline-4">
+<h4 id="orgc48450f"><span class="section-number-4">4.3.2.</span> 例 2 - 文字列に変数を入れる 1</h4>
+<div class="outline-text-4" id="text-4-3-2">
+<p>
+templateLiteral/new/insertVariable1.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">const name = 'シン';
+const hello = 'おはよう';
+const age = 100;
+
+console.log(`${name}、 ${hello}! ${age}歳の誕生日おめでとう!`);
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgdd2de03" class="outline-4">
+<h4 id="orgdd2de03"><span class="section-number-4">4.3.3.</span> 例 3 - 文字列に変数を入れる 2</h4>
+<div class="outline-text-4" id="text-4-3-3">
+<p>
+templateLiteral/new/insertVariable2.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">const one = 1;
+const two = 2;
+
+console.log(`${one} + ${two} = ${one + two}`);
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6f0a009" class="outline-4">
+<h4 id="org6f0a009"><span class="section-number-4">4.3.4.</span> 例 4 - 文字列内部に'(quote), "(double quote)に入れる</h4>
+<div class="outline-text-4" id="text-4-3-4">
+<p>
+templateLiteral/new/quote.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">const free = `'''''""""'''''""""""'''''`;
+
+console.log(free);
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0535ca8" class="outline-4">
+<h4 id="org0535ca8"><span class="section-number-4">4.3.5.</span> 例 5 - `(バックティック)の中で$表示。</h4>
+<div class="outline-text-4" id="text-4-3-5">
+<p>
+templateLiteral/new/dollar.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">const one = 1;
+
+console.log(`$`);
+console.log(`$ ${one}`);
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3161858" class="outline-4">
+<h4 id="org3161858"><span class="section-number-4">4.3.6.</span> 例 6 - `(バックティック)の中で${}表示。</h4>
+<div class="outline-text-4" id="text-4-3-6">
+<p>
+templateLiteral/new/stringInterpolation.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">const one = 1;
+
+console.log(`$\{one\}は ${one}が出力されます。`);
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf573c42" class="outline-3">
+<h3 id="orgf573c42"><span class="section-number-3">4.4.</span> 説明</h3>
+<div class="outline-text-3" id="text-4-4">
+<ul class="org-ul">
+<li>文字列の新しい宣言方法。</li>
+<li>`(バックティック)を利用して表現。</li>
+<li>改行を楽にできる。</li>
+<li>String interpolation(${変数名})を利用して文字列の間に簡単に変数を入れられる。</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgfa3831c" class="outline-3">
+<h3 id="orgfa3831c"><span class="section-number-3">4.5.</span> Tips</h3>
+<div class="outline-text-3" id="text-4-5">
+</div>
+<div id="outline-container-org132b9a0" class="outline-4">
+<h4 id="org132b9a0"><span class="section-number-4">4.5.1.</span> 改行の際、indentの問題</h4>
+<div class="outline-text-4" id="text-4-5-1">
+<p>
+templateLiteral/tips/newLine.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">const newLineEx = `abc
+  def`;
+
+console.log(newLineEx);
+</pre>
+</div>
+
+<p>
+String.prototype.trim()を利用したら改行と関係なく綺麗に書ける。
+</p>
+
+<p>
+templateLiteral/tips/newLineWithTrim.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">  const newLineEx = `
+abc
+def
+`.trim();
+
+  console.log(newLineEx);
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb9e3fc0" class="outline-4">
+<h4 id="orgb9e3fc0"><span class="section-number-4">4.5.2.</span> ObjectをString interpolationを利用して文字列を表現する場合の問題</h4>
+<div class="outline-text-4" id="text-4-5-2">
+<p>
+templateLiteral/tips/newLine.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">const obj = {
+  a: 1,
+  b: 2
+}
+
+console.dir(`${obj}`); //&gt; ??
+</pre>
+</div>
+
+<p>
+String interpolationは内部的にtoStringの処理を利用する為、起こる現象。
+</p>
+
+<p>
+ObjectをString interpolationで表現する場合はJSON.stringfy()を利用したらいい。
+</p>
+
+<p>
+templateLiteral/tips/objectStringify.js
+</p>
+<div class="org-src-container">
+<pre class="src src-js">const obj = {
+  a: 1,
+  b: 2
+}
+
+console.dir(`${JSON.stringfy(obj)}`);
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: shin</p>
+<p class="date">Created: 2023-01-25 Wed 09:14</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
