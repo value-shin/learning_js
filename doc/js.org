@@ -610,15 +610,14 @@ variable/tips/freezeObjectInsideObjectRescue.js
 #+begin_src js
   const one1 = 1;
   const one2 = 1;
-  const three = one1 + 2;
+  let three = one1 + 2;
 #+end_src
 
 #+DOWNLOADED: file:./images/js_explain_number_assign.png @ 2023-01-25 14:35:58
 [[file:Variable/2023-01-25_14-35-58_js_explain_number_assign.png]]
 
 ****** 説明
-+ 値の変更しない。
-+ 既存の値を変更するのではなく、新しい値を作り出す。
++ 値の内容（データ）が変更しない。
 **** JSのMutable data
 ***** 種類
 + array
@@ -653,7 +652,7 @@ variable/tips/freezeObjectInsideObjectRescue.js
 [[file:Variable/2023-01-25_14-55-39_js_explain_object_change_property.png]]
 
 ****** 説明
-+ 値の変更あり。
++ 値の内容（データ）が変更する。
 *** varがかわいそうです、varもたまには使用したいです。いいですよね？
 **** 説明
 + 現在(2023年)基準では使用しないでください。
